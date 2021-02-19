@@ -57,7 +57,7 @@
                                             Shortest
                                         </label>
                                         <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="Tooltip on right"></i>
+                                            data-placement="right" title="For shortest your link"></i>
                                     </div>
                                 </li>
                                 <li class="mr-4 mb-3">
@@ -67,7 +67,7 @@
                                             Random
                                         </label>
                                         <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="Tooltip on right"></i>
+                                            data-placement="right" title="For rendom sbut short Link"></i>
                                     </div>
                                 </li>
                                 <li class="mr-4 mb-3">
@@ -77,7 +77,7 @@
                                             Suggested
                                         </label>
                                         <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="Tooltip on right"></i>
+                                            data-placement="right" title="For suggested Links"></i>
                                     </div>
                                 </li>
                                 <li class="mr-4 mb-3">
@@ -87,7 +87,7 @@
                                             Suggested with dash (SEO friendly)
                                         </label>
                                         <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="Tooltip on right"></i>
+                                            data-placement="right" title="For SEO friendly Link"></i>
                                     </div>
                                 </li>
                                 <li class="mr-4 mb-3">
@@ -97,7 +97,7 @@
                                             Suggested camel case
                                         </label>
                                         <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="Tooltip on right"></i>
+                                            data-placement="right" title="For suggested but in camel case link"></i>
                                     </div>
                                 </li>
                             </ul>

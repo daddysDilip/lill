@@ -193,8 +193,6 @@ Route::get('/user-dashboard','Auth\LoginController@showClientDashboard')->name('
 Route::get('/bot-detected','Client\URLReadController@showBotPage')->name('link.show.bot');
 
 Route::group(['prefix' => 'user-dashboard'], function() {
-    Route::get('create-link','Client\URLGenerateController@showCreateLink')->name('create.link');
-
     /**
      * Short URL Created & Read Routes
      */

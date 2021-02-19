@@ -47,7 +47,7 @@
                             <tr>
                                 <td class="d-flex align-items-center" scope="row">
                                     Link Track
-                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title=""></i>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title="Can track Links"></i>
                                 </td>
                                 <td class="text-center">-</td>
                                 <td class="text-center">-</td>
@@ -74,7 +74,7 @@
                             <tr>
                                 <td class="d-flex align-items-center" scope="row">
                                     Link Expiration
-                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title=""></i>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title="Link can be expire"></i>
                                 </td>
                                 <td class="text-center"><i class="sprite right-icon"></i></td>
                                 <td class="text-center"><i class="sprite right-icon"></i></td>
@@ -110,7 +110,7 @@
                             <tr>
                                 <td class="d-flex align-items-center" scope="row">
                                     Link creation with slugs options
-                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title=""></i>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title="Lill will give you a facility to add number if slugs"></i>
                                 </td>
                                 <td class="text-center">2</td>
                                 <td class="text-center">5</td>
@@ -156,7 +156,7 @@
                             <tr>
                                 <td class="d-flex align-items-center" scope="row">
                                    User Seat
-                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title=""></i>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title="Number of users who can use login"></i>
                                 </td>
                                 <td class="text-center">1</td>
                                 <td class="text-center">1</td>
@@ -210,7 +210,7 @@
                             <tr>
                                 <td class="d-flex align-items-center" scope="row">
                                   Parameter forwarding
-                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title=""></i>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip" data-placement="right" title="Parameter forwarding"></i>
                                 </td>
                                 <td class="text-center"><i class="sprite right-icon"></td>
                                 <td class="text-center"><i class="sprite right-icon"></td>
