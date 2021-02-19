@@ -149,6 +149,7 @@ class URLReadController extends Controller
                                 ->orWhere('website_url','like','%'.$str.'%')
                                 ->where('status',1)
                                 ->get();
+                // dd($LinksData);
                 if(!empty($LinksData) && count($LinksData) > 0) {
                     $TotalLinks = count($LinksData);
                     $view = view("partials.dashboard.links_sidebar",compact('LinksData','TotalLinks'))->render();
