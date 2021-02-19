@@ -1,0 +1,136 @@
+/// Mixin allows you to add rounded borders to elements
+///
+/// @name border-radius($radius)
+///
+/// @param {number} $radius - Defines the shape of the corners.
+///
+/// @example scss
+/// .element {
+///    @include border-radius(100px);
+/// }
+///
+/// @example css
+/// .element {
+///   -webkit-border-radius: 100px;
+///   -moz-border-radius: 100px;
+///    border-radius: 100px;
+/// }
+///
+/// @require {mixin} prefix($property, $value, $prefixes: ())
+
+@mixin border-radius($radius) {
+    @include prefix(border-radius, $radius, 'webkit' 'moz' 'spec');
+}
+
+
+/// Mixin allows you to add rounded borders to elements
+///
+/// @name border-top-radius($radius)
+///
+/// @param {number} $radius - Defines the shape of the  "top left" and "top right" corners.
+///
+/// @example scss
+/// .element {
+///   @include border-top-radius(100px);
+/// }
+///
+/// @example css
+/// .element {
+///   -webkit-border-top-left-radius: 100px;
+///   -moz-border-top-left-radius: 100px;
+///    border-top-left-radius: 100px;
+///   -webkit-border-top-right-radius: 100px;
+///   -moz-border-top-right-radius: 100px;
+///   border-top-right-radius: 100px;
+/// }
+///
+/// @require {mixin} prefix($property, $value, $prefixes: ())
+
+@mixin border-top-radius($radius) {
+    @include prefix(border-top-left-radius, $radius, 'webkit' 'moz' 'spec');
+    @include prefix(border-top-right-radius, $radius, 'webkit' 'moz' 'spec');
+}
+
+/// Mixin allows you to add rounded borders to elements
+///
+/// @name border-bottom-radius($radius)
+///
+/// @param {number} $radius - Defines the shape of the  "bottom left" and "bottom right" corners.
+///
+/// @example scss
+/// .element {
+///    @include border-bottom-radius(100px);
+/// }
+///
+/// @example css
+/// .element {
+///    -webkit-border-bottom-left-radius: 100px;
+///    -moz-border-bottom-left-radius: 100px;
+///    border-bottom-left-radius: 100px;
+///    -webkit-border-bottom-right-radius: 100px;
+///    -moz-border-bottom-right-radius: 100px;
+///    border-bottom-right-radius: 100px;
+/// }
+///
+/// @require {mixin} prefix($property, $value, $prefixes: ())
+
+@mixin border-bottom-radius($radius) {
+    @include prefix(border-bottom-left-radius, $radius, 'webkit' 'moz' 'spec');
+    @include prefix(border-bottom-right-radius, $radius, 'webkit' 'moz' 'spec');
+}
+
+/// Mixin allows you to add rounded borders to elements
+///
+/// @name border-left-radius($radius)
+///
+/// @param {number} $radius - Defines the shape of the  "top left" and "bottom left" corners.
+///
+/// @example scss
+/// .element {
+///   @include border-left-radius(100px);
+/// }
+///
+/// @example css
+/// .element {
+///    -webkit-border-top-left-radius: 100px;
+///    -moz-border-top-left-radius: 100px;
+///    border-top-left-radius: 100px;
+///    -webkit-border-bottom-left-radius: 100px;
+///    -moz-border-bottom-left-radius: 100px;
+///    border-bottom-left-radius: 100px;
+/// }
+///
+/// @require {mixin} prefix($property, $value, $prefixes: ())
+
+@mixin border-left-radius($radius) {
+    @include prefix(border-top-left-radius, $radius, 'webkit' 'moz' 'spec');
+    @include prefix(border-bottom-left-radius, $radius, 'webkit' 'moz' 'spec');
+}
+
+/// Mixin allows you to add rounded borders to elements
+///
+/// @name border-right-radius($radius)
+///
+/// @param {number} $radius - Defines the shape of the  "top right" and "bottom right" corners.
+///
+/// @example scss
+/// .element {
+///   @include border-right-radius(100px);
+/// }
+///
+/// @example css
+/// .element {
+///    -webkit-border-top-right-radius: 100px;
+///    -moz-border-top-right-radius: 100px;
+///    border-top-right-radius: 100px;
+///    -webkit-border-bottom-right-radius: 100px;
+///    -moz-border-bottom-right-radius: 100px;
+///    border-bottom-right-radius: 100px;
+/// }
+///
+/// @require {mixin} prefix($property, $value, $prefixes: ())
+
+@mixin border-right-radius($radius) {
+    @include prefix(border-top-right-radius, $radius, 'webkit' 'moz' 'spec');
+    @include prefix(border-bottom-right-radius, $radius, 'webkit' 'moz' 'spec');
+}

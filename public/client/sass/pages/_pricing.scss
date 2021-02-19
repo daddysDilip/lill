@@ -1,0 +1,124 @@
+/* Pricing Section */
+.pricing-sec {
+    & p {
+        color: $drak-gray;
+        font-size: 16px;
+        line-height:25px;
+    }
+
+    & .pricing-table {
+        & tr {
+            & th {
+                font-size: 18px;
+                color: $drak-gray;
+                font-family: $bold-font;
+                border: 1px solid #eeeeee;
+
+                &.first {
+                    border: none;
+                }
+
+                & span {
+                    color: $black-color;
+                }
+
+                &:nth-child(4) {
+                    background: #F9FAFF;
+                }
+            }
+
+            & td {
+                font-size: 14px;
+                color: $black-color;
+                font-family: $primary-font;
+                padding: 20px 15px;
+                border: 1px solid #eeeeee;
+
+                &:nth-child(4) {
+                    background: #F9FAFF;
+                }
+
+                & small {
+                    font-size: 12px;
+                    color: $drak-gray;
+                    font-family: $light-font;
+                    padding-top: 10px;
+                }
+            }
+        }
+    }
+
+    & .top-area {
+        background-color: #F0F4F7;
+
+        & .search {
+            background-color: $white-color;
+            padding: 5px;
+            @include box-shadow(0px 25px 25px rgba(0, 0, 0, 0.1));
+
+            & button {
+                top: 3px;
+                right: 5px;
+                bottom: 4px;
+            }
+        }
+    }
+
+    & .middle-area {
+
+        & .links-block {
+            background: #F8F8F8;
+        }
+
+        & ul {
+            & li {
+                padding: 15px 5px;
+
+                & .media-body {
+                    font-size: 13px;
+                    font-family: $light-font;
+
+                    & strong {
+                        margin-bottom: 10px;
+                        font-size: 16px;
+                        font-family: $bold-font;
+                    }
+                }
+
+                & .theme-color {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    & .link-details {
+        & p {
+            font-family: $light-font;
+            font-size: 16px;
+            color: $drak-gray;
+        }
+
+        & a {
+            font-family: $light-font;
+            font-size: 16px;
+            color: $drak-gray;
+        }
+    }
+
+
+
+    & #yearly {
+        display: none;
+    }
+
+    &.active {
+        & #yearly {
+            display: block;
+        }
+
+        & #monthly {
+            display: none;
+        }
+    }
+}

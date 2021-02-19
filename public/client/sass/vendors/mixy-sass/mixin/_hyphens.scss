@@ -1,0 +1,30 @@
+/// Mixin allows you to hyphenate words when line-wrapping. 
+///
+/// hyphens($hyphen-value)
+///
+/// @param {string} $hyphen-value - Defines the shape of the corners.
+///
+/// @example scss
+/// .element {
+///    @include hyphens(auto);
+/// }
+///
+/// @example css
+/// .element {
+///    -webkit-hyphens: auto;
+///    -ms-hyphens: auto;
+///    -moz-hyphens: auto;
+///    hyphens: auto;
+/// }
+///
+/// @require {mixin} prefix($property, $value, $prefixes: ())
+
+@mixin hyphens ($hyphen-value : manual) {
+
+     @if not index(manual none auto, $hyphen-value) {
+              @error "value must be either 'deg', 'grand', 'rad' or 'turn'.";
+      }
+
+     @include prefix(hyphens, $hyphen-value, 'webkit' 'ms' 'moz' 'spec');
+
+}

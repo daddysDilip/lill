@@ -1,0 +1,173 @@
+.nanak {
+  background-image: url(spritesheet.png);
+  background-repeat: no-repeat;
+  display: block;
+}
+
+.nanak-account {
+  width: 25px;
+  height: 23px;
+  background-position: -15px -15px;
+}
+
+.nanak-account {
+  width: 36px;
+  height: 34px;
+  background-position: -70px -15px;
+}
+
+.nanak-cart {
+  width: 28px;
+  height: 26px;
+  background-position: -136px -15px;
+}
+
+.nanak-cart {
+  width: 43px;
+  height: 37px;
+  background-position: -194px -15px;
+}
+
+.nanak-cart-small {
+  width: 22px;
+  height: 19px;
+  background-position: -15px -82px;
+}
+
+.nanak-checkout {
+  width: 16px;
+  height: 22px;
+  background-position: -67px -82px;
+}
+
+.nanak-close-1 {
+  width: 8px;
+  height: 8px;
+  background-position: -267px -15px;
+}
+
+.nanak-currency {
+  width: 28px;
+  height: 27px;
+  background-position: -113px -82px;
+}
+
+.nanak-currency {
+  width: 39px;
+  height: 38px;
+  background-position: -171px -82px;
+}
+
+.nanak-del {
+  width: 16px;
+  height: 19px;
+  background-position: -240px -82px;
+}
+
+.nanak-edit {
+  width: 19px;
+  height: 19px;
+  background-position: -15px -131px;
+}
+
+.nanak-filter_white {
+  width: 20px;
+  height: 20px;
+  background-position: -240px -131px;
+}
+
+.nanak-free-ship {
+  width: 56px;
+  height: 43px;
+  background-position: -64px -150px;
+}
+
+.nanak-genuine {
+  width: 43px;
+  height: 43px;
+  background-position: -150px -150px;
+}
+
+.nanak-google-plus {
+  width: 29px;
+  height: 28px;
+  background-position: -223px -181px;
+}
+
+.nanak-list-image-s1 {
+  width: 12px;
+  height: 5px;
+  background-position: -15px -181px;
+}
+
+.nanak-list-image-s2 {
+  width: 14px;
+  height: 11px;
+  background-position: -15px -239px;
+}
+
+.nanak-location {
+  width: 14px;
+  height: 18px;
+  background-position: -59px -239px;
+}
+
+.nanak-lock {
+  width: 14px;
+  height: 19px;
+  background-position: -103px -239px;
+}
+
+.nanak-mail {
+  width: 16px;
+  height: 11px;
+  background-position: -147px -239px;
+}
+
+.nanak-mail-1 {
+  width: 20px;
+  height: 13px;
+  background-position: -193px -239px;
+}
+
+.nanak-phone {
+  width: 11px;
+  height: 18px;
+  background-position: -243px -239px;
+}
+
+.nanak-pin-location {
+  width: 23px;
+  height: 23px;
+  background-position: -305px -15px;
+}
+
+.nanak-pro-detail {
+  width: 15px;
+  height: 15px;
+  background-position: -286px -68px;
+}
+
+.nanak-safe {
+  width: 46px;
+  height: 49px;
+  background-position: -358px -15px;
+}
+
+.nanak-ship-small {
+  width: 26px;
+  height: 20px;
+  background-position: -331px -94px;
+}
+
+.nanak-twitter {
+  width: 32px;
+  height: 26px;
+  background-position: -290px -144px;
+}
+
+.nanak-user {
+  width: 16px;
+  height: 14px;
+  background-position: -387px -94px;
+}

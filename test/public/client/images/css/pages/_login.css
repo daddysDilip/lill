@@ -1,0 +1,38 @@
+.login_box {
+  background-color: #fafafa;
+  padding: 50px;
+  box-shadow: 0 6px 5px -6px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 768px) {
+  .login_box {
+    padding: 10px;
+  }
+}
+
+.login_box .forgot-pass {
+  color: #333;
+  text-decoration: underline;
+}
+
+.nature-canter li {
+  display: inline-block;
+  padding-right: 75px;
+}
+
+.nature-canter li:last-child {
+  padding-right: 0;
+}
+
+.teacher {
+  margin: 0;
+  padding: 0;
+}
+
+.teacher .table-bordered > thead > tr > th, .teacher .table-bordered > thead > tr > td {
+  border-bottom-width: 1px !important;
+}
+
+.teacher thead tr th, .teacher tbody tr th {
+  padding: 10px 20px;
+}

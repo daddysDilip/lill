@@ -1,0 +1,101 @@
+.heading-s1 {
+    @include font-size(50px);
+    color: $primary-color;
+    font-family: $extrabold;
+    line-height: 55px;
+
+    @include media-mobile {
+        @include font-size(32px);
+        line-height: 40px;
+    }
+}
+
+.heading-s2 {
+    color: $black-color;
+    font-family: $bold-font;
+    @include font-size(28px);
+    margin-bottom: 10px;
+
+    @media (max-width: 768px) {
+        @include font-size(26px);
+        line-height: 30px;
+    }
+}
+
+.heading-s3 {
+    @include font-size(18px);
+    color: $black-color;
+    position: relative;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.heading-s4 {
+    @include font-size(26px);
+    color: #000;
+    font-family: "FuturaBook",sans-sarif;
+    font-weight: 700;
+    margin-bottom: 50px;
+    position: relative;
+
+    @media screen and (max-width: 768px) {
+        @include font-size(18px);
+    }
+
+    &::before {
+        background-color: $black-color;
+        content: "";
+        display: inline-block;
+        height: 2px;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 36px;
+        width: 50px;
+        z-index: 1;
+    }
+}
+
+.heading-s5 {
+    border-bottom: 2px solid #E60022;
+    padding-bottom: 9px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    @include font-size(15px);
+
+    span {
+        width: 32px;
+        height: 32px;
+        background-color: #C1001D;
+        @include border-radius(32px);
+        display: inline-block;
+        text-align: center;
+        @include font-size(18px);
+        padding-top: 6px;
+        color: #fff;
+        margin-right: 9px;
+        vertical-align: middle;
+    }
+
+    strong {
+        vertical-align: middle;
+    }
+}
+
+.heading-s6 {
+    @include font-size(18px);
+    color: #333;
+    padding: 13px 0;
+
+    i {
+        width: 22px;
+        height: 22px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    span {
+        vertical-align: middle;
+    }
+}

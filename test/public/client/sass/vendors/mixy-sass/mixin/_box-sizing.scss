@@ -1,0 +1,24 @@
+/// Mixin allows you to alter the default CSS box model
+/// used to calculate width and height of the elements.
+///
+/// @name box-sizing( $box-value )
+///
+/// @param {number} $box-value
+///
+/// @example scss
+/// .element {
+///    @include box-sizing(border-box);
+/// }
+///
+/// @example css
+/// .element {
+///    -webkit-box-sizing: border-box;
+///    -moz-box-sizing: border-box;
+///    box-sizing: border-box;
+/// }
+///
+/// @require {mixin} prefix($property, $value, $prefixes: ())
+
+@mixin box-sizing( $box-value: content-box ) {
+  @include prefix(box-sizing, $box-value, 'webkit' 'moz' 'spec');
+}

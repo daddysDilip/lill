@@ -1,0 +1,55 @@
+/* Basic Info Section */
+.basic-info-sec {
+    & p {
+        font-size: 28px;
+        font-family: $light-font;
+        color: $drak-gray;
+    }
+
+    & small {
+        font-size: 13px;
+        font-family: $light-font;
+        color: $drak-gray;
+    }
+
+    & h3 {
+        font-size: 22px;
+        font-family: $bold-font;
+        color: $drak-gray;
+    }
+
+    & .nav-pills {
+        & li {
+            & a {
+                background: none;
+                color: $drak-gray;
+                font-family: $light-font;
+                font-size: 18px;
+                padding-left: 30px;
+
+                &::before {
+                    @include position(absolute, $top:10px,$left:0);
+                    content: '';
+                    border: 1px solid $drak-gray;
+                    width: 14px;
+                    height: 14px;
+                    @include border-radius(50%);
+                }
+
+                &.active {
+                    background: none;
+                    color: $drak-gray;
+
+                    &::after {
+                        @include position(absolute, $top:10px,$left:0);
+                        border: 4px solid $second-color;
+                        content: '';
+                        width: 14px;
+                        height: 14px;
+                        @include border-radius(50%);
+                    }
+                }
+            }
+        }
+    }
+}

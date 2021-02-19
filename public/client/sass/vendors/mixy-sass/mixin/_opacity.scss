@@ -1,0 +1,24 @@
+/// Mixin allows you to specifies the transparency of an element
+///
+/// @name opacity($opacity)
+///
+/// @param {number} $opacity - Is a number in the range 0.0 to 1.0
+///
+/// @example scss
+/// .element {
+///    @include opacity(0.2);
+/// }
+///
+/// @example css
+/// .element {
+///    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+///    filter: alpha(opacity=20);
+///    opacity: 0.2;
+/// }
+
+@mixin opacity($opacity) {
+  $opacity-ie:  $opacity * 100;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$opacity-ie+")";
+   filter: alpha(opacity= $opacity-ie);
+   opacity: $opacity;
+}

@@ -1,0 +1,157 @@
+/// Mixin allows you to positioning elements
+///
+/// @name position($position, $top: null, $right: null, $bottom: null, $left: null)
+///
+/// @param {string} $position - Defines position of type (relative, absolute, fixed or sticky.)
+///
+/// @param {number} $top - Set the top edge
+///
+/// @param {number} $right - Set the right edge
+///
+/// @param {number} $bottom - Set the bottom edge
+///
+/// @param {number} $left - Set the lefts edge
+///
+/// @example scss
+/// .element {
+///    @include position(absolute, 0, 0, 0, 0);
+/// }
+///
+/// @example css
+/// .element {
+///    position: absolute;
+///    top: 0;
+///    right: 0;
+///    bottom: 0;
+///    left: 0;
+/// }
+///
+/// @example scss (if you want to specific offsets)
+/// .element {
+///    @include position(absolute, $top: 0, $left:0);
+/// }
+///
+/// @example css
+/// .element {
+///    position: absolute;
+///    top: 0;
+///    left: 0;
+/// }
+
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+
+   @if not index(relative absolute fixed sticky, $position) {
+      @error "Position must be either 'relative', 'absolute', 'fixed' or 'sticky'.";
+   }
+
+   position: $position;
+   top : $top;
+   right : $right;
+   bottom: $bottom;
+   left : $left;
+}
+
+
+// 1. One single value applies to all 4 sides
+// 2. Two values apply to 1. top and bottom and 2. to the left and right side
+// 3. Three values apply to 1. top, 2. right and left and 3. to the bottom side
+// 4. Four values apply to 1. top, 2. right, 3. bottom and 4. to the left side
+@mixin mypos($position, $posvalue : null) {
+
+  @if not index(relative absolute fixed sticky, $position) {
+     @error "Position must be either 'relative', 'absolute', 'fixed' or 'sticky'.";
+  }
+
+ $posvalue-length : length($posvalue);
+ $offset : top right bottom left;
+ @each $pos1 in $posvalue {
+   #{top} : $pos1;
+   
+ }
+
+ @if($posvalue-length > 4) {
+
+   @error "position list must be 4 or under 4";
+
+ } @else {
+
+   position : $position;
+   $i : 0;
+
+   @if ($posvalue-length == 4) {
+
+         @each $pos in $posvalue {
+          $i : $i + 1;
+
+          @if ($i == 1) {
+            top : nth($posvalue, $i);
+          }
+          @if ($i == 2) {
+             right : nth($posvalue, $i);;
+          }
+          @if ($i == 3) {
+            bottom : nth($posvalue, $i);;
+          }
+          @if ($i == 4) {
+            left :  nth($posvalue, $i);;
+          }
+       }
+
+  } @elseif ($posvalue-length == 3) {
+
+      @each $pos in $posvalue {
+
+         $i : $i + 1;
+
+         @if ($i == 1) {
+           top : nth($posvalue, $i);
+         }
+
+         @if ($i == 2) {
+            right : nth($posvalue, $i);
+            left : nth($posvalue, $i);
+         }
+
+         @if ($i == 3) {
+            bottom : nth($posvalue, $i);
+         }
+
+     }
+
+  } @elseif ($posvalue-length == 2) {
+
+      @each $pos in $posvalue {
+
+         $i : $i + 1;
+
+         @if ($i == 1) {
+           top : nth($posvalue, $i);
+           bottom: nth($posvalue, $i);
+         }
+
+         @if ($i == 2) {
+            right : nth($posvalue, $i);
+            left : nth($posvalue, $i);
+         }
+
+     }
+
+  } @elseif ($posvalue-length == 1) {
+
+      @each $pos in $posvalue {
+
+         $i : $i + 1;
+
+         @if ($i == 1) {
+           top : nth($posvalue, $i);
+           right : nth($posvalue, $i);
+           bottom : nth($posvalue, $i);
+           left : nth($posvalue, $i);
+         }
+
+     }
+
+  }
+
+  }
+}

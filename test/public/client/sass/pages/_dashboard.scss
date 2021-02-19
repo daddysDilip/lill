@@ -1,0 +1,60 @@
+/* Dashboard Section */
+.dashboard-sec {
+    & .top-area {
+        background-color: #F0F4F7;
+
+        & .search {
+            background-color: $white-color;
+            padding: 5px;
+            @include box-shadow(0px 25px 25px rgba(0, 0, 0, 0.1));
+
+            & button {
+                top: 3px;
+                right: 5px;
+                height: 53px !important;
+            }
+        }
+    }
+
+    & .middle-area {
+
+        & .links-block {
+            background: #F8F8F8;
+        }
+
+        & ul {
+            & li {
+                padding: 15px 5px;
+
+                & .media-body {
+                    font-size: 13px;
+                    font-family: $light-font;
+
+                    & strong {
+                        margin-bottom: 10px;
+                        font-size: 16px;
+                        font-family: $bold-font;
+                    }
+                }
+
+                & .theme-color {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    & .link-details {
+        & p {
+            font-family: $light-font;
+            font-size: 16px;
+            color: $drak-gray;
+        }
+
+        & a {
+            font-family: $light-font;
+            font-size: 16px;
+            color: $drak-gray;
+        }
+    }
+}

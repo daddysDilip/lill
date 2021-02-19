@@ -1,0 +1,73 @@
+/// Mixin allows you to customize placeholder text
+///
+/// @name opacity($opacity)
+///
+/// @param {number} $opacity - Is a number in the range 0.0 to 1.0
+///
+/// @example scss
+/// .element {
+///
+///    @include placeholder {
+///      color : #f00;
+///    };
+///
+///    &:focus {
+///      @include placeholder {
+///        color: #000;
+///      };
+///    }
+///
+/// }
+///
+/// @example css
+/// .element::-webkit-input-placeholder {
+///    color: #f00;
+/// }
+///
+/// .element:-moz-placeholder {
+///    color: #f00;
+/// }
+///
+/// .element::-moz-placeholder {
+///    color: #f00;
+/// }
+///
+/// .element:-ms-input-placeholder {
+///    color: #f00;
+/// }
+///
+/// .element:focus::-webkit-input-placeholder {
+///    color: #000;
+/// }
+///
+/// .element:focus:-moz-placeholder {
+///    color: #000;
+/// }
+///
+/// .element:focus::-moz-placeholder {
+///    color: #000;
+/// }
+///
+/// .element:focus:-ms-input-placeholder {
+///    color: #000;
+/// }
+
+@mixin placeholder {
+
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+
+}

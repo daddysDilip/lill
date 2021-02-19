@@ -1,0 +1,28 @@
+/// Mixin allows you to control animation speed when changing CSS properties.
+///
+/// @name transition($transition-values...)
+///
+/// @param {arglist} $transition-values
+///
+/// @example scss
+/// .element {
+///    @include  transition(all 0.5s ease-in-out);
+/// }
+///
+/// @example css
+/// .element {
+///    -webkit-transition: all 0.5s ease-in-out;
+///    -moz-transition: all 0.5s ease-in-out;
+///    -ms-transition: all 0.5s ease-in-out;
+///    transition: all 0.5s ease-in-out;
+/// }
+///
+/// @require {mixin} prefix($property, $value, $prefixes: ())
+
+@mixin transition($transition-values...) {
+  @include prefix(transition, $transition-values, 'webkit' 'moz' 'ms' 'spec');
+}
+
+@mixin transition-delay($transition-delay-value) {
+  @include prefix(transition-delay, $transition-delay-value, 'webkit' 'moz' 'ms' 'spec');
+}

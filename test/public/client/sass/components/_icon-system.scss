@@ -1,0 +1,83 @@
+.sprite {
+    background-image: url($img-path + 'sprite.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+.fb-follow {
+    background-position: 0 0;
+    width: 16px;
+    height: 22px;
+    background-size: 40px;
+}
+.tw-follow {
+    background-position: -15px 0;
+    width: 20px;
+    height: 17px;
+    background-size: 35px;
+}
+.back-to-top {
+    background-position: 0 -35px;
+    width: 14px;
+    height: 9px;
+}
+.info-icon {
+    background-position: -17px -35px;
+    width: 21px;
+    height: 21px;
+}
+.ball-icon {
+    background-position: -39px -35px;
+    width: 21px;
+    height: 21px;
+}
+.search-icon {
+    background-position: 0 -56px;
+    width: 24px;
+    height: 24px;
+}
+.lock-icon {
+    background-position: -27px -56px;
+    width: 14px;
+    height: 20px;
+}
+.heart-icon {
+    background-position: 0 -82px;
+    width: 14px;
+    height: 12px;
+}
+.earth-icon {
+    background-position: -14px -82px;
+    width: 14px;
+    height: 12px;
+}
+.copy-icon {
+    background-position: -28px -82px;
+    width: 14px;
+    height: 12px;
+}
+.share-icon {
+    background-position: -42px -82px;
+    width: 14px;
+    height: 12px;
+}
+.edit-icon {
+    background-position: 0 -95px;
+    width: 14px;
+    height: 12px;
+}
+.delete-icon {
+    background-position: -12px -95px;
+    width: 14px;
+    height: 12px;
+}
+.view-icon {
+    background-position: -27px -95px;
+    width: 14px;
+    height: 12px;
+}
+.tooltip-icon {
+    background-position: -43px -96px;
+    width: 11px;
+    height: 12px;
+}

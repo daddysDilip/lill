@@ -1,0 +1,41 @@
+/// Mixin allows you to set a rem font size with pixel fallback
+///
+/// @name font-size($size)
+///
+/// @param {number} $size - define size of font in px.
+///
+/// @param {string} $unit - specify conversion unit (default is rem).
+///
+/// @example scss
+/// .element {
+///    @include font-size(25px);
+/// }
+///
+/// @example css
+/// .element {
+///    font-size: 25px;
+///    font-size: 1.5625rem;
+/// }
+///
+/// @example scss
+/// .element {
+///    @include font-size(25px, em);
+/// }
+///
+/// @example css
+/// .element {
+///    font-size: 25px;
+///    font-size: 1.5625em;
+/// }
+///
+/// @require {function} fontSize($size)
+
+@mixin font-size($size, $unit : "rem") {
+
+   @if not index(rem em, $unit) {
+     @error "Unit must be em or rem.";
+   }
+
+   font-size: $size;
+   font-size: fontSize($size, $unit);
+}

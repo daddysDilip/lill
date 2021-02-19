@@ -1,0 +1,70 @@
+/// Mixin allows you to create "triangles"
+///
+/// @name triangle($direction, $size: 8px, $color: #222)
+///
+/// @param {string} $direction - set the direction of triangle (top, bottom, left, right)
+///
+/// @param {number} $size - Set the size of triangle
+///
+/// @param {number} $color - Set the color of triangle
+///
+/// @example scss
+/// .element {
+///    @include triangle(down, 20px, #000);
+/// }
+///
+/// @example css
+/// .element {
+///    content: '';
+///    display: block;
+///    position: absolute;
+///    height: 0;
+///    width: 0;
+///    border-right: 15px solid #000;
+///    border-top: 15px solid transparent;
+///    border-bottom: 15px solid transparent;
+/// }
+
+@mixin triangle($direction, $size: 8px, $color: #222) {
+
+  @if not index(top bottom left right, $direction) {
+     @error "Direction must be either 'top', 'bottom', 'left' or 'right'.";
+  }
+
+  content: '';
+  display: block;
+  position: absolute;
+  height: 0;
+  width: 0;
+
+  @if($direction == 'top') {
+
+    border-bottom: $size solid $color;
+
+  } @else if($direction == 'bottom') {
+
+    border-top: $size solid $color;
+
+  } @else if($direction == 'left') {
+
+    border-right: $size solid $color;
+
+  } @else if($direction == 'right') {
+
+    border-left: $size solid $color;
+
+  }
+
+  @if($direction == "top" or $direction == "bottom") {
+
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+
+  } @else if($direction == "left" or $direction == "right") {
+
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+
+  }
+
+}

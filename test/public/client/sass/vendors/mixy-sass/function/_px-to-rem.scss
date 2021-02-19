@@ -1,0 +1,26 @@
+/// Function convert px based font size to rem
+///
+/// @name px_to_rem($size)
+///
+/// @param {number} $size - Font size in px
+///
+/// @param {string} $unit - Font Unit (for eg. em, rem)
+///
+/// @return {number}
+
+@function fontSize ($size, $unit, $based-font-size : 16px) {
+
+  $font-size: '';
+
+  @if($unit == "rem") {
+
+    $font-size : ($size / $based-font-size) * 1rem;
+
+  } @else if($unit == "em") {
+
+    $font-size : ($size / $based-font-size) * 1em;
+
+  }
+
+  @return $font-size;
+}

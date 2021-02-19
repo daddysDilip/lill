@@ -1,0 +1,40 @@
+.services_box {
+  margin-top: -50px;
+}
+
+.services_box li {
+  float: left;
+  padding: 0;
+  position: relative;
+}
+
+.services_box li img {
+  width: 100%;
+}
+
+.services_box li .service_text {
+  color: #fff;
+  font-size: 26px;
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  text-transform: uppercase;
+}
+
+.services_box li .service_text b {
+  display: block;
+}
+
+/*@import "register-signup";
+    
+    @import "my-account";
+
+@import "product";
+
+@import "product-detail";
+
+@import "shoping-cart";
+
+@import "checkout";
+
+@import "view-order";*/

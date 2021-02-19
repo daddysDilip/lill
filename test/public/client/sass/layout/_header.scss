@@ -1,0 +1,22 @@
+a, button {
+    @include transition(all 0.3s ease);
+}
+
+#header {
+    @include transition(all 600ms ease 0s);
+}
+
+.dropdown-toggle {
+    &::after {
+        display: none;
+    }
+}
+
+.fixedscroll {
+    #header {
+        @include position(fixed, $top: 0,$left:0,$right:0);
+        z-index: 999;
+        border-bottom:none;
+        box-shadow: 0px 0px 35px rgba(25, 88, 245, 0.12);
+    }
+}

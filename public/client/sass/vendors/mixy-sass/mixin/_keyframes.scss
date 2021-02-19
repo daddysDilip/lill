@@ -1,0 +1,41 @@
+@mixin keyframes($animation-name) {
+
+  @if($prefix-for-webkit) {
+
+    @include disable-prefix-for-all();
+    $prefix-for-webkit: true !global;
+
+    @-webkit-keyframes #{$animation-name} {
+
+      @content;
+
+    }
+
+  }
+
+  @if($prefix-for-mozilla == false) {
+
+    @include disable-prefix-for-all();
+    $prefix-for-mozilla: true !global;
+
+    @-moz-keyframes #{$animation-name} {
+
+      @content;
+
+    }
+
+  }
+
+  @if($prefix-for-spec == false) {
+
+    @include disable-prefix-for-all();
+    $prefix-for-spec: true !global;
+
+    @keyframes #{$animation-name} {
+
+      @content;
+
+    }
+  }
+
+}

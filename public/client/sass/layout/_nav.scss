@@ -1,0 +1,308 @@
+.main-nav {
+    @include transition(all 0.5s ease-in-out);
+    position: relative;
+
+    @include media-mobile {
+        z-index: 99999999;
+        width: 300px;
+        height: 100%;
+        overflow-y: auto;
+        background-color: $white-color;
+        @include position(fixed, $top: 0, $left: 0, $right: auto);
+        @include transition(all 0.5s ease-in-out);
+
+        .container {
+            padding: 0;
+        }
+
+        line-height: 45px;
+    }
+
+    @media screen and (max-width: 1024px) {
+        & .nav-list {
+            display: block;
+        }
+    }
+}
+
+
+.nav-list__item {
+    //change background on hover
+    @include transition(all 0.5s ease-in-out);
+
+    @include media-desktop {
+        &.open {
+            & > a {
+                color: $second-color;
+
+                &::after {
+                    width: 100%;
+                    left: 0;
+                    right: 0;
+                }
+            }
+        }
+
+        position: relative;
+
+        & > a {
+            color: $drak-gray;
+            padding: 15px 0;
+            position: relative;
+
+            @include media-desktop {
+                margin: 0 30px;
+            }
+
+            &::after {
+                @include position(absolute, $bottom: 0, $left: 50%,$right: 50%);
+                border-bottom: 1px solid $second-color;
+                content: "";
+                width: 0;
+                @include transition(all 400ms ease-in-out);
+            }
+
+            &:hover {
+                color: $second-color;
+
+
+                &::after {
+                    width: 100%;
+                    left: 0;
+                    right: 0;
+                }
+            }
+        }
+    }
+
+    > a {
+        @include font-size(14px);
+        color: $drak-gray;
+        display: block;
+        text-transform: capitalize;
+
+        &.sale-link {
+            font-weight: 700;
+            color: $primary-color;
+        }
+    }
+
+    &.dropdown_menu > a::after {
+        background: url("../images/sprite.png");
+        background-position: -462px -28px;
+        @include position(absolute, $top: 28px, $right: 7px);
+        width: 14px;
+        height: 14px;
+        content: "";
+    }
+
+    @include media-mobile {
+        position: relative;
+
+        & a {
+            border-bottom: 1px solid #f3f3f3;
+            padding: 15px;
+            text-align: left;
+            color: $black-color;
+            @include font-size(14px);
+            padding: 5px 15px;
+        }
+
+        & .sub-child {
+            width: 40px;
+            height: 55px;
+            @include position(absolute, $top:0,$bottom:0, $right: 0);
+            display: inline-block;
+
+            & .plus-child {
+                background: url("../images/sprite.png");
+                background-position: 0 -66px;
+                background-repeat: no-repeat;
+                background-size: 35px;
+                width: 16px;
+                height: 14px;
+                display: inline-block;
+                @include position(absolute, $top:22px,$left:10px);
+            }
+
+            &.active .plus-child {
+                background-position: 0 -83px;
+                height: 3px;
+                top: 28px;
+            }
+        }
+    }
+}
+
+@include media-desktop {
+    .has-menu-fix {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 9;
+        background-color: #fff;
+        border-bottom: 1px solid #ccc;
+    }
+}
+/*
+  Mobile Menu Animation
+*/
+@include media-mobile {
+    .main-nav.menu-open {
+        @include translateX(0px);
+    }
+
+    .no-csstransitions .main-nav.menu-open {
+        left: 0px;
+    }
+
+    .main-nav.menu-close {
+        @include translateX(-300px);
+    }
+
+    .no-csstransitions .main-nav.menu-close {
+        left: -300px;
+    }
+
+    .page-overlay.menu-open {
+        @include position(fixed, 0, 0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 9;
+        width: 100%;
+    }
+
+    .page-overlay.menu-open + .header {
+        position: relative !important;
+        z-index: auto;
+    }
+    /* give smoothness to menu */
+    .menu-transtion {
+        transform-style: preserve-3d;
+        @include transition(all 0.5s ease-in-out);
+    }
+}
+/* menu trigger */
+.mobile-menu-trigger {
+    display: none;
+
+    @include media-mobile {
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 30px;
+        float: left;
+        margin: 0 15px 0 0;
+
+        span {
+            width: 100%;
+            display: block;
+            margin-top: 14px;
+            height: 1px;
+            background-color: $black-color;
+        }
+
+        &:after,
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            height: 1px;
+            width: 100%;
+            background-color: $black-color;
+        }
+
+        &:after {
+            top: 4px;
+        }
+
+        &:before {
+            bottom: 4px;
+        }
+    }
+}
+/* drop down style */
+    .dropdown_menu {
+        background-color: #fff;
+
+        @include media-desktop {
+            @include position(absolute, $top:68px,$left:0,$right:0);
+            z-index: 5;
+            padding: 20px;
+            visibility: hidden;
+            opacity: 0;
+            @include transition(all 0.5s ease-in-out);
+            @include box-shadow(0px 0px 4px rgba(0, 0, 0, 0.07));
+            min-width: 480px;
+            width: 100%;
+            display: block;
+            opacity: 0;
+            transition: all 0.3s ease-in-out 0s;
+            visibility: hidden;
+        }
+
+
+        @include media-mobile {
+            display: none;
+        }
+    }
+
+    .nav-list__item {
+        &:hover .dropdown_menu {
+            opacity: 1;
+            top: 50px;
+            visibility: visible;
+        }
+    }
+.nav-list-sub-inner {
+    & li {
+        padding: 20px;
+
+        @include media-mobile {
+            line-height: 25px;
+
+            &:nth-child(2) {
+                border-bottom: 1px solid #dee2e6;
+            }
+        }
+
+        & a {
+            font-size: 12px;
+            color: $drak-gray;
+            display: block;
+            font-family: $light-font;
+            line-height: 15px;
+
+            & h5 {
+                color: $black-color;
+                font-size: 15px;
+                font-weight: 600;
+            }
+
+            &:hover {
+                & h5 {
+                    color: $second-color;
+                }
+            }
+
+            @include media-mobile {
+                padding: 0 0;
+                display: block;
+                border-bottom: none;
+                text-align: left;
+            }
+        }
+    }
+}
+.header-right-block {
+    & li {
+        & a {
+            font-size: 14px;
+            color: $light-gray;
+        }
+
+        & button {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+    }
+}

@@ -1,0 +1,73 @@
+.btn-theme {
+    background: $primary-color;
+    border: none;
+    color: $white-color;
+    font-size: 22px;
+    font-family: $light-font;
+    @include box-shadow(0px 7px 14px rgba(0, 0, 0, 0.2));
+    @include border-radius(5px);
+    padding: 15px 50px;
+    @include media-desktop {
+        @include transition(all 300ms ease-in-out);
+        position: relative;
+        overflow: hidden;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.3s;
+        transition-duration: 0.3s;
+
+        &::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: $blue-color;
+            border-radius: 100%;
+            @include transform(scale(0));
+            -webkit-transition-property: transform;
+            transition-property: transform;
+            -webkit-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+
+        &:hover {
+            &::before {
+                @include transform(scale(2));
+            }
+        }
+    }
+}
+
+.btn-black {
+    background: $light-black-color;
+    border: none;
+    color: $white-color;
+    font-size: 18px;
+    font-family: $light-font;
+    @include border-radius(5px);
+    padding: 10px 0;
+
+    &:hover {
+        color: $white-color;
+    }
+}
+
+.next-btn {
+    font-family: $light-font;
+    background: none;
+    border: 1px solid $second-color;
+    color: $second-color;
+    font-size: 20px;
+}
+
+.theme-color {
+    color: $second-color;
+}

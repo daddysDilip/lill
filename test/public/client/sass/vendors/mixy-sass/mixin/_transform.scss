@@ -1,0 +1,109 @@
+@mixin scale($sx, $sy:null) {
+
+  @if($sy == null) {
+
+      @include prefix(transform, scale($sx), 'webkit' 'moz' 'spec');
+
+  } @else {
+
+      @include prefix(transform, scale($sx, $sy), 'webkit' 'moz' 'spec');
+
+  }
+
+}
+
+@mixin rotate($angle) {
+
+ // check if value is number or not
+ @if(isNumber($angle)) {
+
+   // check for angle unit
+   @if(not index(deg grad rad turn, unit($angle))) {
+
+       @error "unit must be either 'deg', 'grand', 'rad' or 'turn'.";
+
+   } @else {
+
+      @include prefix(transform, rotate($angle), 'webkit' 'moz' 'ms' 'spec');
+
+   }
+
+ } @else {
+
+    @error "value must be number";
+
+ }
+
+}
+
+@mixin translate($tx, $ty) {
+
+  @include prefix(transform, translateX($tx, $ty), 'webkit' 'moz' 'ms' 'spec');
+
+}
+
+@mixin translateX($tx) {
+
+  @if(isNumber($tx)) {
+
+     @include prefix(transform, translateX($tx), 'webkit' 'moz' 'ms' 'spec');
+
+  } @else {
+
+    @error "value must be number, and you enter " + type-of($tx);
+
+  }
+
+}
+
+@mixin translateY($ty) {
+
+    @if(isNumber($ty)) {
+
+       @include prefix(transform, translateY($ty), 'webkit' 'moz' 'ms' 'spec');
+
+   } @else {
+
+     @error "value must be number";
+
+   }
+
+}
+
+
+@mixin skew($ax, $ay: null) {
+
+  $angle-unit : deg grad rad turn;
+
+  $property : '';
+
+  @if($ay == null) {
+
+     @if(not index($angle-unit, unit($ax))) {
+
+        @error "unit must be either 'deg', 'grand', 'rad' or 'turn'.";
+
+     }
+
+     $property : skew($ax);
+
+  } @else {
+
+      @if( (not index($angle-unit, unit($ax))) or (not index($angle-unit, unit($ay))) ) {
+
+        @error "unit must be either 'deg', 'grand', 'rad' or 'turn'.";
+
+      }
+
+      $property : skew($ax, $ay)
+
+  }
+
+  @include prefix(transform, $property, 'webkit' 'moz' 'spec');
+}
+
+@mixin transform ($property...) {
+
+  @include prefix(transform, $property, 'webkit' 'moz' 'spec');
+
+}

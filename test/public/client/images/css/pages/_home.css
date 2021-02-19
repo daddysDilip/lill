@@ -1,0 +1,19 @@
+.services_box {
+  margin-top: -50px;
+  position: relative;
+}
+
+.services_box li {
+  float: left;
+  padding: 0;
+}
+
+.services_box li img {
+  width: 100%;
+}
+
+.services_box li .service_text {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}

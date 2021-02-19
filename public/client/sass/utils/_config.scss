@@ -1,0 +1,47 @@
+// ==========================================================================
+// Global Config
+// ==========================================================================
+
+// Font Family
+$primary-font: 'Nunito-Regular', sans-serif;
+$light-font: 'Nunito-Light', sans-serif;
+$bold-font: 'Nunito-Bold', sans-serif;
+$extrabold: 'Nunito-ExtraBold', sans-serif;
+
+// Font Weights
+$font-weight--heading  : 500;
+
+// Text
+$placeholder-color: #C4C4C4;
+$placeholder-color--focus : #666666;
+$base__font-size : 16px;
+$base__line      : 24px;
+
+// Store path
+$img-path : "../images/";
+$font-path : "../fonts/";
+
+// Site Color Scheme
+$primary-color: linear-gradient(180deg, #1958F5 0%, #4620FE 100%);
+$second-color: #1958F5;
+$gray: #666666;
+$blue-color: #000B39;
+$black-color: #020B33;
+$light-black-color: #555555;
+$white-color : #ffffff;
+$footer-bottom :#1e1551;
+$red : #ED3237;
+$light-gray:#9B9FA4;
+$drak-gray: #858585;
+
+// Media Query
+@mixin media-mobile {
+    @media screen and (max-width : 1024px) {
+        @content;
+    }
+}
+@mixin media-desktop {
+    @media screen and (min-width : 1025px) {
+        @content;
+    }	
+}

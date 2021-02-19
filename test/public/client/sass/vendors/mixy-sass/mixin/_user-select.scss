@@ -1,0 +1,7 @@
+@mixin user-select($selection-value) {
+  @if not index(auto text none contain all, $selection-value) {
+      @error "value must be either auto text none contain all.";
+  }
+
+  @include prefix(user-select, $selection-value, 'webkit' 'ms' 'moz' 'spec');
+}

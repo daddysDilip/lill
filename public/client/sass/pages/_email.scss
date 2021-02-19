@@ -1,0 +1,66 @@
+/* Email Verificaton Section */
+.email-verification-sec {
+
+    & p {
+        color: $light-black-color;
+        font-size: 18px;
+        font-family: $light-font;
+        line-height: 25px;
+    }
+
+    & small {
+        font-family: $light-font;
+        color: $light-black-color;
+        font-size: 12px;
+        line-height:20px;   
+    }
+
+    & .or {
+        color: #C4C4C4;
+        font-size: 18px;
+
+        &::after {
+            border-bottom: 1px solid #c4c4c4;
+            @include position(absolute, $top: 10px, $left: 0, $right: auto);
+            content: '';
+            width: 100%;
+            z-index: -1;
+        }
+    }
+
+    & .forgot-link {
+        top: 15px;
+        right: 20px;
+    }
+}
+
+.forgot-password {
+    & .back_login {
+        color: $red;
+        cursor: pointer;
+    }
+}
+
+.login-btn {
+    @media (max-width: 768px) {
+        text-align: center;
+    }
+
+    & button {
+        background-color: $red;
+        color: $white-color;
+        padding: 10px 30px;
+        display: inline-block;
+        position: relative;
+        transition: all 0.3s ease 0s;
+        border-radius: 0;
+    }
+}
+
+.mobile-app {
+    & label {
+        display: block;
+        color: $red;
+        font-weight: 600;
+    }
+}

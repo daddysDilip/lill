@@ -1,0 +1,23 @@
+/// Mixin allows you to control animation speed when changing CSS properties.
+///
+/// @name box-shadow($shadow-values...)
+///
+/// @param {arglist} $shadow-values
+///
+/// @example scss
+/// .element {
+///    @include box-shadow(10px 5px 5px rgba(0, 0, 0, 0.5));
+/// }
+///
+/// @example css
+/// .element {
+///    -webkit-box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);
+///    -moz-box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);
+///    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.5);
+/// }
+///
+/// @require {mixin} prefix($property, $value, $prefixes: ())
+
+@mixin box-shadow($shadow-values...) {
+  @include prefix(box-shadow, $shadow-values, 'webkit' 'moz' 'spec');
+}

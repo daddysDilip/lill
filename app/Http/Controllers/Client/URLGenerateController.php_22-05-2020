@@ -1,0 +1,289 @@
+<?php
+
+namespace App\Http\Controllers\Client;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Auth;
+use DB;
+use App\UserLinks;
+use App\Wishlist;
+use QrCode;
+
+class URLGenerateController extends Controller
+{
+
+    public function showCreateLink() {
+        $LinkType = DB::table('link_types')->where('status',1)->get();
+        return view('client_links.create_link');
+    }
+
+    // function get_favicon($url) {
+    //     // $doc = new \DOMDocument();
+    //     // $doc->strictErrorChecking = FALSE;
+    //     // @$doc->loadHTML(file_get_contents($url));
+    //     // $xml = simplexml_import_dom($doc);
+    //     // $arr = $xml->xpath('//link[@rel="shortcut icon"]');
+    //     // if (!empty($arr[0]['href'])) {
+    //     //     return $arr[0]['href'];
+    //     // } else {
+    //     //     return null;
+    //     // }
+    //     $html=file_get_contents($url);
+    //         $dom=new \DOMDocument();
+    //         @$dom->loadHTML($html);
+    //         $links=$dom->getElementsByTagName('link');
+    //         $favicon='';
+
+    //         for($i=0;$i < $links->length;$i++ )
+    //         {
+    //             $link=$links->item($i);
+    //             if($link->getAttribute('rel')=='icon'||$link->getAttribute('rel')=="Shortcut Icon"||$link->getAttribute('rel')=="shortcut icon")
+    //             {
+    //                 $favicon=$link->getAttribute('href');
+    //             }
+    //         }
+
+    //         if(!empty($favicon) && $favicon == "img/favicon.png" || $favicon == "img/favicon.ico") {
+    //             return $url.$favicon;
+    //         } else {
+    //             return null;
+    //         }
+    // }
+
+    function fetchWebsiteSchema(Request $request) {
+        if($request->ajax()) {
+            $link_type = $request->link_type;
+            $url = $request->website_url;
+
+            // if((!(substr($request->website_url, 0, 7) == 'http://')) && (!(substr($request->website_url, 0, 8) == 'https://')) && (!(substr($request->website_url, 0, 111) == 'http://www.'))) {
+            //     $url = "http://www.".$request->website_url;
+            // } else if((!(substr($request->website_url, 0, 11) == 'https://www.')) || (!(substr($request->website_url, 0, 10) == 'http://www.'))) {
+            //     //echo basename($request->website_url);
+            //     echo substr($request->website_url, 0, 8);
+            // } else {
+            //     $url = $request->website_url;
+            // }
+            
+            $meta_title = get_url_data($url,$link_type);
+            $favicon = get_favicon($url);
+
+            //echo json_encode("data:image/png;base64,".base64_encode(QrCode::format('png')->size(200)->generate('My First QR code')));
+
+            if(!empty($meta_title)) {
+                echo json_encode(['status' => '200','meta_title' => $meta_title,'favicon' => $favicon]);
+            } else {
+                echo json_encode(['status' => '404','msg' => 'Unable to generate link. Please check if URL is valid or try again later.']);
+            }
+
+        }
+    }
+
+    public function createGuestLink(Request $request) {
+        
+        if($request->ajax()) {
+            
+            if((!(substr($request->website_url, 0, 7) == 'http://')) && (!(substr($request->website_url, 0, 8) == 'https://')) && (!(substr($request->website_url, 0, 111) == 'http://www.'))) {
+                $url = "http://www.".$request->website_url;
+            } else {
+                $url = $request->website_url;
+            }
+            
+            $code = random_link(4);
+            $link = config('app.name')."/".$code;
+
+            $user_link = new UserLinks();
+            $user_link->website_url = $url;
+            $user_link->generated_link = $link;
+            $user_link->link_type = 1;
+            $user_link->link_code = $code;
+            $user_link->ip_address = get_ip();
+            $user_link->isGuestLink = 1;
+            $user_link->status = 1;
+            $user_link->created_at = getDateTime();
+
+            if(!check_guest_link_exist($url,get_ip())) {
+                if($user_link->save()) {
+                    echo json_encode(['result' => 'success','msg' => 'Link generated successfully.','link' => $link]);
+                } else {
+                    echo json_encode(['result' => 'link-fail','msg' => 'Failed to generate link at this momment. Please try again later.']);
+                }
+            } else {    
+                $user_link = get_user_link($url,get_ip()); 
+                echo json_encode(['result' => 'success','msg' => 'Link generated successfully.','link' => $user_link->generated_link]);
+            }
+        }
+
+    }
+
+    public function storeLink(Request $request) {
+        if($request->ajax()) {
+            $website_url = $request->website_url;
+            $slash_tag = $request->slash_tag;
+            $link_exist = UserLinks::where('website_url',$website_url)->where('userid',Auth::guard('user')->user()->id)->get();
+            if(count($link_exist) > 0) {
+                return json_encode(['status' => 'link-exist','msg' =>'Website URL already exist.']);
+            } else {
+                $user_link = new UserLinks();
+                $user_link->userid = Auth::guard('user')->user()->id;
+                $user_link->website_url = $request->website_url ?? "";
+                $user_link->generated_link = $slash_tag ?? "";
+                $user_link->link_title = $request->link_title ?? "";
+                $user_link->link_type = $request->link_type ?? "";
+                $user_link->link_code = $request->link_code ?? "";
+                $user_link->ip_address = get_ip();
+                $user_link->domain = $request->domain ?? "";
+                $user_link->tags = $request->tags ?? "";
+                $user_link->qr_code = generate_qr($request->slash_tag);
+                $user_link->isGuestLink = 0;
+                $user_link->status = 1;
+                $user_link->created_at = getDateTime();
+
+                if($user_link->save()) {
+                    return json_encode(['status' => 'success','msg' =>'URL generated successfully.','link' => $slash_tag]);
+                } else {
+                    return json_encode(['status' => 'fail','msg' =>'Failed to generate short URL. Please try again later.']);
+                }
+            }
+        }
+    }
+
+    public function addToWishlist(Request $request) {
+        if($request->ajax()) {
+            $wishlist = new Wishlist();
+            $wishlist->userid = Auth::guard('user')->user()->id;
+            $wishlist->link_id = $request->link_id;
+            $wishlist->created_at = getDateTime();
+
+            if(Wishlist::where('link_id',$request->link_id)->first()) {
+                return response()->json(['status' => 'fail','msg' => 'Link already exist.']);
+            } else {
+                if(!$wishlist->save()) {
+                    return response()->json(['status' => 'fail','msg' => 'Failed to add to wishlist.']);
+                }
+            }
+            
+        }
+    }
+
+    public function deleteWishlist(Request $request) {
+        if($request->ajax()) {
+            $link_id = $request->link_id;
+            $wishlist_id = $request->wishlist_id;
+            if(!Wishlist::where('id',$wishlist_id)->where('link_id',$link_id)->delete()) {
+                return response()->json(['status' => 'fail','msg' => 'Failed to remove from wishlist. Please try again later.']);
+            }
+        }
+    }
+
+    public function dashboard_link_change_status(Request $request) {
+        if($request->ajax()) {
+            $user_link = UserLinks::find($request->link_id);
+            if($request->action == "hide") {
+                $user_link->showOnDashboard = 0;
+                if($user_link->save()) {
+                    return response()->json(['status' => 'success']);
+                } else {
+                    return response()->json(['status' => 'fail','msg' => 'Failed to hide your link. Please try again later.']);
+                }
+            } else if($request->action == "unhide") {
+                $user_link->showOnDashboard = 1;
+                if($user_link->save()) {
+                    return response()->json(['status' => 'success','msg' => 'You can see your link on dashboard.']);
+                } else {
+                    return response()->json(['status' => 'fail','msg' => 'Failed to un-hide your link. Please try again later.']);
+                }
+            }
+        }
+    }
+
+    public function deleteLink(Request $request) {
+        if($request->ajax()) {
+            if(UserLinks::where('id',$request->link_id)->delete()) {
+                return response()->json(['status' => 'success']);
+            } else {
+                return response()->json(['status' => 'fail','msg' => 'Failed to delete link. Please try again later.']);
+            }
+        }
+    }
+
+    public function editLink($id) {
+        $Link = UserLinks::where('id',$id)->first();
+        $LinkType = DB::table('link_types')->where('status',1)->get();
+        return view('client_links.edit_link',compact('Link','LinkType'));
+    }
+
+    public function updateLink(Request $request) {
+        
+        if($request->ajax()) {
+            $website_url = $request->website_url;
+            $slash_tag = $request->slash_tag;
+            $link_id = $request->link_id;
+
+            $user_link = UserLinks::where('userid',Auth::guard('user')->user()->id)->where('id',$link_id)->first();
+            $user_link->generated_link = $slash_tag ?? "";
+            $user_link->link_type = $request->link_type ?? "";
+            $user_link->ip_address = get_ip();
+            $user_link->qr_code = generate_qr($request->slash_tag);
+            $user_link->updated_at = getDateTime();
+
+            if($user_link->save()) {
+                return json_encode(['status' => 'success','msg' =>'Link updated successfully.','link' => $slash_tag]);
+            } else {
+                return json_encode(['status' => 'fail','msg' =>'Failed to update link. Please try again later.']);
+            }
+        }
+    }
+
+    public function sortLink(Request $request) {
+        if($request->ajax() && !empty($request->sort_by)) {
+
+            $sort_by = $request->sort_by;
+            $userid = Auth::guard('user')->user()->id;
+            $result = array();
+            $LinksData = UserLinks::leftJoin('user_link_wishlist as wishlist','user_links.id','=','wishlist.link_id')->where('user_links.userid',$userid)->where('user_links.status',1)->where('showOnDashboard',1)->select('user_links.*','wishlist.id as wishlist_id','wishlist.userid as wishlist_userid','wishlist.link_id as link_id');
+            $sort_date = $request->sort_date;
+
+            if(!empty($sort_date)) {
+                $dates = explode("-", $sort_date);
+                $start_date = str_replace('/','-',date('Y-m-d', strtotime($dates[0])));
+                $end_date = str_replace('/','-',date('Y-m-d', strtotime($dates[1])));
+                $LinksData->whereBetween('user_links.created_at',[$start_date,$end_date]);
+            }
+
+            if($sort_by == "latest") {
+                $LinksData->orderBy('user_links.created_at',"desc");
+            } else if($sort_by == "asc") {
+                $LinksData->orderBy('user_links.link_code',"asc");
+            } else if($sort_by == "desc") {
+                $LinksData->orderBy('user_links.link_code',"desc");
+            } else if($sort_by == "wishlist") {
+                $LinksData->orderBy('wishlist.id',"asc");
+            } 
+
+            if(count($LinksData->get()) > 0) {
+                $LinksData = $LinksData->get();
+                $TotalLinks = count($LinksData);
+                $view = view("partials.dashboard.link_details",compact('LinksData','TotalLinks'))->render();
+                return response()->json(['status' => '200','data' => $view]);
+            } else {    
+                $msg = "No details to display.";
+                $view = view("partials.dashboard.link_details",compact('msg'))->render();
+                return response()->json(['status' => '204','data' => $view]);
+            }
+
+        }
+    }
+
+    public function shareLink($id) {
+        if($id > 0) {
+            $Link = UserLinks::where('id',$id)->where('status',1)->first();
+            if(!empty($Link)) {
+                return view('partials.client.ui.share_popup', compact('Link'));
+            } else {
+                echo "fail";
+            }
+        }
+    }
+}

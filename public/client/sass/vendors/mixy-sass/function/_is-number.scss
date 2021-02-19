@@ -1,0 +1,13 @@
+/// Function check value is number or not
+///
+/// @name is_number($size)
+///
+/// @param {number} $value
+///
+/// @return {boolen}
+
+@function isNumber($value) {
+
+  @return type-of($value) == 'number';
+
+}
