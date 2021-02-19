@@ -140,9 +140,21 @@
 
 @section('js')
     <script src="{{asset('ckeditor/ckeditor.js')}}"></script>
-    <script>
+    {{-- <script src="{{ asset('lte/plugins/ckeditor/ckeditor.js') }}"></script>
+    --}} <script>
+        var base_url = "{{url('/')}}";
         $(document).ready(function() {
-            CKEDITOR.replace( 'content' );
+            // CKEDITOR.replace( 'content' );
+            CKEDITOR.replace( 'content', {
+    filebrowserBrowseUrl: base_url+'/js/ckfinder/ckfinder.html',
+    filebrowserImageBrowseUrl: base_url+'/js/ckfinder/ckfinder.html?Type=Images',
+    filebrowserUploadUrl: base_url+'/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+    filebrowserImageUploadUrl: base_url+'/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+    filebrowserWindowWidth: '1000',
+    filebrowserWindowHeight: '700',
+    allowedContent : true
+
+} );
             $('#EmailTemplate').validate({
                 ignore: [],
                 debug: false,
