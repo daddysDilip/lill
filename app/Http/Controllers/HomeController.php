@@ -26,6 +26,7 @@ class HomeController extends Controller
     
     public function showPricing() {
         $Plans = Plans::where('status',1)->orderBy('id','ASC')->get();
+        // dd($Plans->toArray());
         return view('pricing',compact('Plans'));
     }
 

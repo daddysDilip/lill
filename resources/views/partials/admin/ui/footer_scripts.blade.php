@@ -34,8 +34,8 @@
 <!-- BEGIN: Page JS-->
 {{-- <script src="{{asset('admin/js/scripts/pages/dashboard-analytics.min.js')}}"></script> --}}
 <!-- END: Page JS-->
-<script src="{{asset('admin/vendors/js/charts/chart.min.js')}}"></script>
-<script src="{{asset('admin/js/scripts/charts/chart-chartjs.min.js')}}"></script>
+{{-- <script src="{{asset('admin/vendors/js/charts/chart.min.js')}}"></script> --}}
+{{-- <script src="{{asset('admin/js/scripts/charts/chart-chartjs.min.js')}}"></script> --}}
 
 <script>
 $(document).ready(function(){

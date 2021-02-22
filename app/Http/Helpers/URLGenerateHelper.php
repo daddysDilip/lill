@@ -136,7 +136,8 @@ function get_guest_url_data($url) {
     
     $code = random_link(4);
     if(!empty($final_url)) {
-        return ['generated_link' => "https://www.".config('app.name')."/".$code,'final_url' => $final_url,'code' => $code];
+        return ['generated_link' => URL::to('/')."/".$code,'final_url' => $final_url,'code' => $code];
+        // return ['generated_link' => "https://www.".config('app.name')."/".$code,'final_url' => $final_url,'code' => $code];
     }
 }
 
@@ -170,7 +171,7 @@ function get_guest_url__link_type_data($url,$type) {
     $domain = get_domain($final_url);
     $code = generate_guest_link_code($domain,$type);
     if(!empty($final_url)) {
-        return ['generated_link' => "https://www.".config('app.name')."/".$code,'final_url' => $final_url,'code' => $code];
+        return ['generated_link' => URL::to('/')."/".$code,'final_url' => $final_url,'code' => $code];
     }
 }
 

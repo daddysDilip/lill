@@ -19,11 +19,11 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="bottom-area p-3 d-flex align-items-center justify-content-between">
-                                            <a href="{{$links->generated_link}}" target="_blank"><i class="sprite earth-icon"></i></a>
-                                            <a class="btn-copy-group-link" data-clipboard-action="copy" data-clipboard-target="#copy-link-{{$links->link_id}}"><i class="sprite copy-icon"></i></a>
-                                            <a href="{{route('view.share.link', $links->link_id)}}" class="share-link"><i class="sprite share-icon"></i></a>
-                                            <a href="{{route('edit.link',$links->link_id)}}"><i class="sprite edit-icon"></i></a>
-                                            <a href="#" class="delete-group-link" data-link_map_id="{{$links->link_map_id}}"><i class="sprite delete-icon"></i></a>
+                                            <a title="Go to Link" href="{{$links->generated_link}}" target="_blank"><i class="sprite earth-icon"></i></a>
+                                            <a title="Copy to clip board" class="btn-copy-group-link" data-clipboard-action="copy" data-clipboard-target="#copy-link-{{$links->link_id}}"><i class="sprite copy-icon"></i></a>
+                                            <a title="Share" href="{{route('view.share.link', $links->link_id)}}" class="share-link"><i class="sprite share-icon"></i></a>
+                                            <a title="Edit" href="{{route('edit.link',$links->link_id)}}"><i class="sprite edit-icon"></i></a>
+                                            <a title="Delete" href="#" class="delete-group-link" data-link_map_id="{{$links->link_map_id}}"><i class="sprite delete-icon"></i></a>
                                         </div>
                                     </div>
                                 </div>

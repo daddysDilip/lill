@@ -149,7 +149,18 @@ class PlanFeatureController extends Controller
             $features->title = $request->input('title');
             $features->short_description = $request->input('description');
             $features->feature_type = $request->input('feature_type');
-            $features->feature_text = ($request->input('feature_type') == "text" ? $request->input('feature_text') : ($request->input('feature_type') == "check") ? "check" : "-");
+            if($request->input('feature_type') == "text")
+            {
+                $features->feature_text = $request->input('feature_text');
+            } else {
+                if($request->input('feature_type') == "check")
+                {
+                    $features->feature_text = "check";
+                } else {
+                    $features->feature_text = "-";
+                }
+            }
+            // $features->feature_text = ($request->input('feature_type') == "text" ? $request->input('feature_text') : ($request->input('feature_type') == "check") ? "check" : "-");
             $features->status = empty($request->input('status')) ? 0 : $request->input('status');
             $features->updated_at = getDateTime();
 
