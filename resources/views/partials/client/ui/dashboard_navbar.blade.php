@@ -10,52 +10,54 @@
                 </a>
             </div>
             <div class="col-lg-8 col-6 header-middle main-nav menu-close">
-                    <ul class="nav-list d-xl-flex align-items-center">
-                        <li class="nav-list__item dropdown">
-                            <a class="btn btn-link" id="linksMenuButton">
-                                Links
-                            </a>
-                            <div class="dropdown_menu p-0">
-                                <ul class="nav-list-sub-inner">
-                                    <li class="border-bottom">
-                                        <a class="media d-flex align-items-center" href="{{ route('create.link') }}">
-                                            <img src="http://lill.pw/client/images/navigation/nav-icon1.svg" width="15">
-                                            <div class="media-body ml-3">
-                                                <h5 class="mt-0 mb-1">Create Link</h5>
-                                                An Introduction to Lill features
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="border-bottom">
-                                        <a class="media d-flex align-items-center" href="{{ route('user.links.groups') }}">
-                                            <img src="http://lill.pw/client/images/navigation/nav-icon2.svg" width="20">
-                                            <div class="media-body ml-3">
-                                                <h5 class="mt-0 mb-1">Link Groups</h5>
-                                                Connect Lill with tools you love
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="media d-flex align-items-center" href="{{ route('user.bulk.links') }}">
-                                            <img src="http://lill.pw/client/images/navigation/nav-icon2.svg" width="20">
-                                            <div class="media-body ml-3">
-                                                <h5 class="mt-0 mb-1">Bulk Links</h5>
-                                                Import / Export Bulk Links
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!--<li class="nav-list__item">
-                            <a href="#">Workspaces</a>
-                        </li>
-                        <li class="nav-list__item">
-                            <a href="#">Pricing</a>
-                        </li>-->
-                    </ul>
+                <ul class="nav-list d-xl-flex align-items-center">
+                    <li class="nav-list__item dropdown">
+                        <a class="btn btn-link" id="linksMenuButton">
+                            Links
+                        </a>
+                        <div class="dropdown_menu p-0">
+                            <ul class="nav-list-sub-inner">
+                                <li class="border-bottom">
+                                    <a class="media d-flex align-items-center" href="{{ route('create.link') }}">
+                                        <img src="http://lill.pw/client/images/navigation/nav-icon1.svg" width="15">
+                                        <div class="media-body ml-3">
+                                            <h5 class="mt-0 mb-1">Create Link</h5>
+                                            An Introduction to Lill features
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="border-bottom">
+                                    <a class="media d-flex align-items-center" href="{{ route('user.links.groups') }}">
+                                        <img src="http://lill.pw/client/images/navigation/nav-icon2.svg" width="20">
+                                        <div class="media-body ml-3">
+                                            <h5 class="mt-0 mb-1">Link Groups</h5>
+                                            Connect Lill with tools you love
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="media d-flex align-items-center" href="{{ route('user.bulk.links') }}">
+                                        <img src="http://lill.pw/client/images/navigation/nav-icon2.svg" width="20">
+                                        <div class="media-body ml-3">
+                                            <h5 class="mt-0 mb-1">Bulk Links</h5>
+                                            Import / Export Bulk Links
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-list__item">
+                        <a href="{{ route('chart.report') }}">Chart View</a>
+                    </li>
+                    <li class="nav-list__item">
+                        <a href="{{ route('link.report') }}">Links Detail</a>
+                    </li>
+                </ul>
+
                 <!-- / .main-nav -->
             </div>
+
             <div class="col-lg-2 col-6 text-right">
                 <ul class="header-right-block d-flex align-items-center justify-content-end">
                     <li>

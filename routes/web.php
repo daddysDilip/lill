@@ -188,6 +188,7 @@ Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback')
 
 Route::get('/user-dashboard','Auth\LoginController@showClientDashboard')->name('user.dashboard');
 
+
 //Route::get('/{slug}','Client\URLReadController@fetchLinkSchema');
 
 Route::get('/bot-detected','Client\URLReadController@showBotPage')->name('link.show.bot');
@@ -201,6 +202,10 @@ Route::group(['prefix' => 'user-dashboard'], function() {
     Route::post('store-link','Client\URLGenerateController@storeLink')->name('store.link');
     Route::get('edit-link/{id}','Client\URLGenerateController@editLink')->name('edit.link');
     Route::post('update-link','Client\URLGenerateController@updateLink')->name('update.link');
+
+    //user reoprts
+    Route::get('/user-chart-report','Auth\ReportController@showChartReprot')->name('chart.report');
+    Route::get('/user-Link-report','Auth\ReportController@showLinksReprot')->name('link.report');
 
     /**
      * Account Settings Routes

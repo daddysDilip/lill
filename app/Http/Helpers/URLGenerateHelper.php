@@ -292,4 +292,11 @@ function get_settings($key) {
     return DB::table('settings')->where('key',$key)->first();
 }
 
+function pr($data)
+{
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+}
+
 ?>
