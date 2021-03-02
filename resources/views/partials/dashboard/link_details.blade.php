@@ -1,4 +1,9 @@
 @if (!empty($Link))
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
+<script src="https://code.highcharts.com/maps/modules/data.js"></script>
+<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+<script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
     <div class="tab-content links-tab" id="v-pills-tabContent">
         <div class="tab-pane fade show active" data-link_id="{{$Link->id}}"  id="v-pills-{{$Link->link_code}}" role="tabpanel" aria-labelledby="v-pills-{{$Link->link_code}}-tab">
             <div class="link-details p-2 p-lg-3">
@@ -13,9 +18,12 @@
                     </div>
                     <div class="col-lg-6 mb-3">
                         <div class="box-shadow">
-                            <div id="map1" style="width: 100%; height: 300px"></div>
+                            <div id="container" style="width: 100%; height: 300px"></div>
                         </div>
                     </div>
+                </div>
+                <div class="row extra-small-gutter mt-4">
+                    <img src="{{$Link->qr_code}}" />
                 </div>
             </div>
         </div>

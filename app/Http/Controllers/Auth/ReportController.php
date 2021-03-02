@@ -62,15 +62,13 @@ class ReportController extends Controller
     public function showLinksReprot(Request $request)
     {
         $userid = Auth::guard('user')->user()->id;
-
         $daterange = $request->daterange;
+        
         if($daterange != "")
         {
             $dates = explode(" - ", $daterange);
             $start_date = date("Y-m-d", strtotime(trim($dates[0])));
             $end_date = date("Y-m-d", strtotime(trim($dates[1])));
-            // echo date("Y-m-d", strtotime($start_date)); echo "</br>"; 
-            // echo date("Y-m-d", strtotime($end_date)); echo "</br>"; 
             $LinksData = UserLinks::leftJoin('user_link_favorites as favorite','user_links.id','=','favorite.link_id')->where('user_links.userid',$userid)->where('user_links.status',1)->where('showOnDashboard',1)->whereBetween('user_links.created_at', [$start_date, $end_date])->select('user_links.*','favorite.id as favorite_id','favorite.userid as favorite_userid','favorite.link_id as link_id')->get();
         } else {
             $LinksData = UserLinks::leftJoin('user_link_favorites as favorite','user_links.id','=','favorite.link_id')->where('user_links.userid',$userid)->where('user_links.status',1)->where('showOnDashboard',1)->select('user_links.*','favorite.id as favorite_id','favorite.userid as favorite_userid','favorite.link_id as link_id')->get();

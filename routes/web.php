@@ -270,6 +270,7 @@ Route::post('create-shortest-link-type','Client\URLGenerateController@createGues
 Route::post('search-link', 'Client\URLReadController@searchURL')->name('search.link');
 Route::post('get-links','Client\URLReadController@fetchLinks')->name('get.links');
 Route::post('get-link-details','Client\URLReadController@fetchLinkData')->name('get.link.details');
+Route::post('get-link-map','Client\URLReadController@fetchLinkMap')->name('get.link.map');
 Route::post('add-to-favorite','Client\URLGenerateController@addToFavorite')->name('add.to.favorite');
 Route::post('delete-favorite','Client\URLGenerateController@deleteFavorite')->name('delete.favorite');
 Route::post('dashboard-link-change-status','Client\URLGenerateController@dashboard_link_change_status')->name('dashboard.link.change.status');

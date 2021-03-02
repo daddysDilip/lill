@@ -251,21 +251,41 @@ class URLReadController extends Controller
             return $request->all();
         }
     }
+    public function fetchLinkMap(Request $request) {
+        
+        $map_report = LinksReport::select(DB::raw("count(id) as total_clicks, countryCode"))->where('link_id',$request->link_id)->groupBy('countryCode')->get();
+        // pr(object_to_array($map_report));
+        $filter = [];
+        foreach (object_to_array($map_report) as $key => $val)
+        {
+            if($val['countryCode'] == NULL || $val['countryCode'] == "IN" )
+            {
+                if(array_key_exists('IN', $filter))
+                {
+                    $filter['IN'] = $filter['IN'] + $val['total_clicks'];
+                } else {
+                    $filter['IN'] = $val['total_clicks'];
+                }
+            } else {
+                $filter[$val['countryCode']] = $val['total_clicks'];
+            }
+        }
+        $last = get_map_country();
+        foreach($last as $k => $v)
+        {
+            if(array_key_exists($v['code'], $filter))
+            {
+                $last[$k]['value'] = $filter[$v['code']];
+            }
+            if($last[$k]['value'] == 0)
+            {
+                unset($last[$k]);
+            }
+        }
+        // echo sizeof($last);
+        // pr($last); die;
 
-    // public function fetchLinkData(Request $request) {
-    //     if($request->ajax()) {
-    //         $userid = Auth::guard('user')->user()->id;
-    //         $links = UserLinks::where('link_code',$request->link_code)->where('userid',$userid)->where('status',1)->first();
-    //         if(!empty($links)) {
-    //             $view = view("partials.dashboard.link_details",compact('links'))->render();
-    //             return response()->json(['status' => '200','data' => $view]);
-    //         } else {    
-    //             $msg = "No details to display.";
-    //             $view = view("partials.dashboard.link_details",compact('msg'))->render();
-    //             return response()->json(['status' => '204','data' => $view]);
-    //         }
-    //     } else {
-    //         return response()->json(['status' => '404']);
-    //     }
-    // }
+
+        return response()->json(array_values($last));
+    }
 }
