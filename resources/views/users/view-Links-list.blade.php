@@ -4,6 +4,7 @@
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- BEGIN: Content-->
     <div class="app-content content">
       <div class="content-overlay"></div>
@@ -17,6 +18,10 @@
             <div class="row">
               <div class="col-12 col-sm-7">
                 <div class="media mb-2">
+                  <form>
+                    &nbsp Select Date: <input type="text" name="daterange" value="{{$daterange}}" />
+                    <input type="submit" value="Submit">
+                  </form>
                   
                 </div>
               </div>
@@ -79,6 +84,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
       $('#CustomerLinksInfo').DataTable({
@@ -88,5 +95,12 @@
         ]
       });
   } );
+  $(function() {
+    $('input[name="daterange"]').daterangepicker({
+      opens: 'left'
+    }, function(start, end, label) {
+      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+  });
 </script>
 @endsection

@@ -59,22 +59,23 @@ class ReportController extends Controller
         return redirect()->route('user.signin');
     }
 
-    public function showLinksReprot()
+    public function showLinksReprot(Request $request)
     {
         $userid = Auth::guard('user')->user()->id;
-        // if($request->link_code == "all") {
+
+        $daterange = $request->daterange;
+        if($daterange != "")
+        {
+            $dates = explode(" - ", $daterange);
+            $start_date = date("Y-m-d", strtotime(trim($dates[0])));
+            $end_date = date("Y-m-d", strtotime(trim($dates[1])));
+            // echo date("Y-m-d", strtotime($start_date)); echo "</br>"; 
+            // echo date("Y-m-d", strtotime($end_date)); echo "</br>"; 
+            $LinksData = UserLinks::leftJoin('user_link_favorites as favorite','user_links.id','=','favorite.link_id')->where('user_links.userid',$userid)->where('user_links.status',1)->where('showOnDashboard',1)->whereBetween('user_links.created_at', [$start_date, $end_date])->select('user_links.*','favorite.id as favorite_id','favorite.userid as favorite_userid','favorite.link_id as link_id')->get();
+        } else {
             $LinksData = UserLinks::leftJoin('user_link_favorites as favorite','user_links.id','=','favorite.link_id')->where('user_links.userid',$userid)->where('user_links.status',1)->where('showOnDashboard',1)->select('user_links.*','favorite.id as favorite_id','favorite.userid as favorite_userid','favorite.link_id as link_id')->get();
-            if(!empty($LinksData) && count($LinksData) > 0) {
-                $TotalLinks = count($LinksData);
-                // pr($LinksData->toArray()); die;
-                // $view = view("partials.dashboard.links_sidebar",compact('LinksData','TotalLinks'))->render();
-                return View('users/view-links-list', compact('LinksData','TotalLinks'));
-                // return response()->json(['status' => '200','data' => $view]);
-            } else {    
-                $msg = "No details to display.";
-                $view = view("partials.dashboard.empty_link",compact('msg'))->render();
-                // return response()->json(['status' => '204','data' => $view]);
-            }
-        // }
+        }
+        $TotalLinks = count($LinksData);
+        return View('users/view-links-list', compact('LinksData','TotalLinks','TotalLinks','daterange'));
     }
 }
