@@ -295,7 +295,7 @@ function get_settings($key) {
 function pr($data)
 {
     echo '<pre>';
-    print_r($data);
+    print_r(json_decode(json_encode($data),true));
     echo '</pre>';
 }
 

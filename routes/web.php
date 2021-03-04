@@ -269,6 +269,7 @@ Route::post('create-shortest-link','Client\URLGenerateController@createGuestLink
 Route::post('create-shortest-link-type','Client\URLGenerateController@createGuestLinkWithType')->name('create.shortest.link.type');
 Route::post('search-link', 'Client\URLReadController@searchURL')->name('search.link');
 Route::post('get-links','Client\URLReadController@fetchLinks')->name('get.links');
+Route::post('get-filterd-links','Client\URLReadController@fetchFilterdLinks')->name('get.filterd.links');
 Route::post('get-link-details','Client\URLReadController@fetchLinkData')->name('get.link.details');
 Route::post('get-link-map','Client\URLReadController@fetchLinkMap')->name('get.link.map');
 Route::post('add-to-favorite','Client\URLGenerateController@addToFavorite')->name('add.to.favorite');

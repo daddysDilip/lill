@@ -1,5 +1,5 @@
 @extends('layouts.client_dashboard_layout')
-@section('name') Customer Detail @endsection
+@section('title') Link List @endsection
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">

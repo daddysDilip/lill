@@ -45,7 +45,7 @@
                     @csrf
                     <div class="search position-relative mb-4">
                         <div class="row extra-small-gutter align-items-center">
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <div class="position-relative">
                                     <input class="form-control" type="text" name="search_link" id="search_link" placeholder="Seach anything here..." />
                                     <button type="submit" class="btn btn-theme search-btn text-white position-absolute border-left h-100 rounded-0 pl-3 pr-3">
@@ -53,28 +53,41 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <a href="{{route('create.link')}}" class="btn btn-theme btn-block text-white text-uppercase p-2">Create</a>
-                            </div>
                         </div>
                     </div>
-                    <div class="row align-items-center justify-content-center mt-5">
+                            {{-- <div class="col-lg-2">
+                                <a href="{{route('create.link')}}" class="btn btn-theme btn-block text-white text-uppercase p-2">Create</a>
+                            </div> --}}
+                    <div class="row align-items-center  mt-5">
                         <div class="col-lg-3 mb-3">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <label class="col-form-label">Copy Clipboard</label>
-                                <label class="switch ml-3">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
                         </div>
-                        <div class="col-lg-3 mb-3">
+                        {{-- <div class="col-lg-3 mb-3">
                             <div class="bg-white">
                                 <button class="btn btn-theme p-2 btn-block"><i class="sprite lock-icon"></i>&nbsp; Purchase Premium</button>
                             </div> 
-                        </div>
+                        </div> --}}
                     </div>
                 </form>
+              <form method="POST" id="filterForm">
+                &nbsp Date: <input type="text" name="daterange" id="selectDate" value="{{@$daterange}}"/>
+
+                <select name="country" id="country">
+                    <option value="" >Select Content</option>
+                    @foreach ($LinkCountrys as $country)
+                        <option value="{{$country->countryCode}}">{{$country->countryName}}</option>
+                    @endforeach
+                </select>
+                &nbsp Clicks: <input type="number" name="min" id="minClick" placeholder="Min" />
+                 &nbsp <input type="number" name="max" id="maxClick" placeholder="Max" />
+                <input type="submit" value="Apply filters">
+              </form>
+            <select name="linkFilter" id="linkFilter">
+                <option value="" >Select Filter</option>
+                  <option value="highToLow">Clicks high to low</option>
+                  <option value="lowToHigh">Clicks low to high</option>
+                  <option value="oldToNew">Old to new</option>
+                  <option value="newToOld">New to old</option>
+            </select>
             </div>
         </div>
         <div class="middle-area">
@@ -105,7 +118,19 @@
     <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
     <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
     <script>
-        
+        var selectedDate = null;
+        var country = null;
+        var minClick = null;
+        var maxClick = null;
+        var myShortingAttribute = null;
+        $(function() {
+            $('input[name="daterange"]').daterangepicker({
+              opens: 'left'
+            }, function(start, end, label) {
+              console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+              selectedDate = start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD');
+            });
+          });
         $(document).ready(function() {     
 
             // $('.notification-dropdown-button').click(function() {
@@ -142,8 +167,8 @@
                                     getSingleLink(link_id);
                                 }
                             } else if(res.status == "204") {
-                                $('.links-section').html("");
-                                $('.links-section').html(res.data);
+                                $('.links-details').html("");
+                                $('.links-list-block').html(res.data);
                             }
                         }
                     }).done(function() {
@@ -233,54 +258,54 @@
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                                labels:Months,
-                                datasets: [{
-                                    label: 'Total Clicks',
-                                    data: Clicks,
-                                    borderWidth: 1,
-                                    borderColor:[
-                                        'red',    
-                                        'rgba(0,0,230,0.5)',   
-                                        'green', 
-                                        'black',
-                                        'purple',
-                                        'yellow',
-                                        'pink',
-                                        'orange',
-                                        'grey',
-                                        'brown',
-                                        'cyan',
-                                        'violet'
-                                    ],
-                                    backgroundColor:[
-                                        'rgba(250,0,0,0.2)',    
-                                        'rgba(0,0,230,0.5)',   //rgba(0,0,230,0.5)
-                                        'rgba(0,117,0.5)', 
-                                        'rgba(0,0,0)',
-                                        'purple',
-                                        'yellow',
-                                        'pink',
-                                        'orange',
-                                        'grey',
-                                        'brown',
-                                        'cyan',
-                                        'violet'
-                                    ]
-                                }],
+                            labels:Months,
+                            datasets: [{
+                                label: 'Total Clicks',
+                                data: Clicks,
+                                borderWidth: 1,
+                                borderColor:[
+                                    'red',    
+                                    'rgba(0,0,230,0.5)',   
+                                    'green', 
+                                    'black',
+                                    'purple',
+                                    'yellow',
+                                    'pink',
+                                    'orange',
+                                    'grey',
+                                    'brown',
+                                    'cyan',
+                                    'violet'
+                                ],
+                                backgroundColor:[
+                                    'rgba(250,0,0,0.2)',    
+                                    'rgba(0,0,230,0.5)',   //rgba(0,0,230,0.5)
+                                    'rgba(0,117,0.5)', 
+                                    'rgba(0,0,0)',
+                                    'purple',
+                                    'yellow',
+                                    'pink',
+                                    'orange',
+                                    'grey',
+                                    'brown',
+                                    'cyan',
+                                    'violet'
+                                ]
+                            }],
                         },
                         options: {
                             responsive:true,
                             maintainAspectRation:false,
                             scales: {
-                                    yAxes: [{
-                                        display:true,
-                                        ticks: {
-                                            beginAtZero:true,
-                                            steps:1,
-                                            stepValue:1,
-                                            stepSize:1
-                                        }
-                                    }]
+                                yAxes: [{
+                                    display:true,
+                                    ticks: {
+                                        beginAtZero:true,
+                                        steps:1,
+                                        stepValue:1,
+                                        stepSize:1
+                                    }
+                                }]
                             }
                         }
                     });
@@ -294,48 +319,40 @@
                         },
                         success:function(data1) {
                             console.log('-------------1111------------>',data1);   
-                            Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
-                                console.log('-------------2222------------>',data); 
-                                // Prevent logarithmic errors in color calulcation
-                                data.forEach(function (p) {
-                                    p.value = (p.value < 1 ? 1 : p.value);
-                                });
+                            // Initiate the chart
+                            Highcharts.mapChart('container', {
+                                chart: {
+                                    map: 'custom/world'
+                                },
 
-                                // Initiate the chart
-                                Highcharts.mapChart('container', {
-                                    chart: {
-                                        map: 'custom/world'
-                                    },
+                                title: {
+                                    text: 'Zoom in on country by double click'
+                                },
 
-                                    title: {
-                                        text: 'Zoom in on country by double click'
-                                    },
+                                mapNavigation: {
+                                    enabled: true,
+                                    enableDoubleClickZoomTo: true
+                                },
 
-                                    mapNavigation: {
-                                        enabled: true,
-                                        enableDoubleClickZoomTo: true
-                                    },
+                                colorAxis: {
+                                    min: 1,
+                                    max: 1000,
+                                    type: 'logarithmic'
+                                },
 
-                                    colorAxis: {
-                                        min: 1,
-                                        max: 1000,
-                                        type: 'logarithmic'
-                                    },
-
-                                    series: [{
-                                        data: data1,
-                                        joinBy: ['iso-a3', 'code3'],
-                                        name: 'Population density',
-                                        states: {
-                                            hover: {
-                                                color: '#a4edba'
-                                            }
-                                        },
-                                        tooltip: {
-                                            valueSuffix: 'Clicks'
+                                series: [{
+                                    data: data1,
+                                    joinBy: ['iso-a3', 'code3'],
+                                    name: 'Population density',
+                                    states: {
+                                        hover: {
+                                            color: '#a4edba'
                                         }
-                                    }]
-                                });
+                                    },
+                                    tooltip: {
+                                        valueSuffix: 'Clicks'
+                                    }
+                                }]
                             });
                         }
                     });
@@ -360,8 +377,8 @@
                         getMonthlyReport(link_id);
                         $('.links-details').html(res.data);
                     } else if(res.status == "204") {
-                        $('.links-section').html("");
-                        $('.links-section').html(res.data);
+                        $('.links-details').html("");
+                        $('.links-list-block').html(res.data);
                     }
                 }
             }).done(function() {
@@ -388,8 +405,8 @@
                             getSingleLink(link_id);
                         }
                     } else if(res.status == "204") {
-                        $('.links-section').html("");
-                        $('.links-section').html(res.data);
+                        $('.links-details').html("");
+                        $('.links-list-block').html(res.data);
                     }
                 }
             }).done(function() {
@@ -399,5 +416,58 @@
             });
         }
 
+        $('#filterForm').submit(function(e){
+            // Stop the form submitting
+            e.preventDefault();
+            console.log('------date------>', selectedDate);
+            country = $('#country').find(":selected").val();
+            console.log('-----country------->', country);
+            minClick = $('#minClick').val();
+            console.log('-----minClick------->', minClick);
+            maxClick = $('#maxClick').val();
+            console.log('-----maxClick------->', maxClick);
+            apply_filters();
+        });
+
+        $('#linkFilter').on('change', function() {
+            myShortingAttribute = this.value;
+            apply_filters();
+        });
+        
+
+        function apply_filters()
+        {
+            if(selectedDate != null || country != null || minClick != null || maxClick != null || myShortingAttribute != null )
+            {
+                $.ajax({
+                    type:"POST",
+                    url:"{{route('get.filterd.links')}}",
+                    data:{
+                        selectedDate:selectedDate,
+                        country:country,
+                        minClick:minClick,
+                        maxClick:maxClick,
+                        myShortingAttribute:myShortingAttribute,
+                        '_token':"{{csrf_token()}}"
+                    },
+                    success:function(res) {
+                        if(res.status == "200") {
+                            $('.links-list-block').html(res.data);
+                            var link_id = $(".nav-pills .nav-link.active").attr("data-link_id");
+                            if(link_id > 0) {
+                                getSingleLink(link_id);
+                            }
+                        } else if(res.status == "204") {
+                            $('.links-details').html("");
+                            $('.links-list-block').html(res.data);
+                        }
+                    }
+                }).done(function() {
+                    setTimeout(function(){
+                        $("#overlay").fadeOut(300);
+                    },500);
+                });
+            }
+        }
     </script>   
 @endsection

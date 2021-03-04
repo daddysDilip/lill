@@ -175,6 +175,82 @@ class URLReadController extends Controller
         }
     }
 
+    public function fetchFilterdLinks(Request $request) {
+        if($request->ajax() || !empty($request->selectedDate) || !empty($request->country) || !empty($request->minClick) || !empty($request->maxClick) || !empty($request->myShortingAttribute)) {
+            // echo $request->country; die;
+            $userid = Auth::guard('user')->user()->id;
+            // if($request->link_code == "all") {
+                $query = UserLinks::leftJoin('user_link_favorites as favorite','user_links.id','=','favorite.link_id')->leftJoin('links_reports as lr','user_links.id','=','lr.link_id');
+                $query->select('user_links.*', 'favorite.id as favorite_id', 'favorite.userid as favorite_userid', 'favorite.link_id as link_id', DB::raw('count(lr.id) as click_count'));
+                $query->where('user_links.userid', $userid);
+                $query->where('user_links.status', 1);
+                $query->where('showOnDashboard', 1);
+
+                if($request->selectedDate != "") {
+                    $dates = explode(" to ", $request->selectedDate);
+                    $start_date = date("Y-m-d", strtotime(trim($dates[0])));
+                    $end_date = date("Y-m-d", strtotime(trim($dates[1])));
+                    $query->whereBetween('user_links.created_at', [$start_date, $end_date]);
+                }
+                if($request->country != "")
+                {
+                    // $query->leftJoin('links_reports as lr','user_links.id','=','lr.link_id');
+                    $query->where('lr.countryCode', $request->country);
+                }
+                if($request->minClick != "" || $request->minClick != 0)
+                {
+                    $query->where(function($query)
+                        {
+                            $query->select(DB::raw('count(*) as count'))
+                                  ->from('links_reports')
+                                  ->whereRaw('user_links.id = links_reports.link_id');
+                        },'>=', $request->minClick);
+                }
+                if($request->maxClick != "" || $request->maxClick != 0)
+                {
+                    $query->where(function($query)
+                        {
+                            $query->select(DB::raw('count(*) as count'))
+                                  ->from('links_reports')
+                                  ->whereRaw('user_links.id = links_reports.link_id');
+                        },'<=', $request->maxClick);
+                }
+
+                if($request->myShortingAttribute != "")
+                {
+                    if($request->myShortingAttribute == "highToLow")
+                    {
+                        $query->orderBy('click_count', 'DESC');
+                    }
+                    if($request->myShortingAttribute == "lowToHigh")
+                    {
+                        $query->orderBy('click_count', 'ASC');
+                    }
+                    if($request->myShortingAttribute == "oldToNew")
+                    {
+                        $query->orderBy('user_links.created_at', 'ASC');
+                    }
+                    if($request->myShortingAttribute == "newToOld")
+                    {
+                        $query->orderBy('user_links.created_at', 'DESC');
+                    }
+                }
+                $query->groupBy('user_links.id');
+                $LinksData = $query->get();
+                // pr($LinksData); die;
+                if(!empty($LinksData) && count($LinksData) > 0) {
+                    $TotalLinks = count($LinksData);
+                    $view = view("partials.dashboard.links_sidebar",compact('LinksData','TotalLinks'))->render();
+                    return response()->json(['status' => '200','data' => $view]);
+                } else {    
+                    $msg = "No details to display.";
+                    $view = view("partials.dashboard.empty_link",compact('msg'))->render();
+                    return response()->json(['status' => '204','data' => $view]);
+                }
+            // } 
+        }
+    }
+
     public function fetchLinkData(Request $request) {
         if($request->ajax()) {
             $userid = Auth::guard('user')->user()->id;
@@ -191,51 +267,6 @@ class URLReadController extends Controller
             return response()->json(['status' => '404']);
         }
     }
-
-    // public function fetchLinkData(Request $request) {
-    //     if($request->ajax() || !empty($request->search_link)) {
-    //         $userid = Auth::guard('user')->user()->id;
-    //         if($request->link_code == "all") {
-    //             $months = array(
-    //                 'January'.date('Y'),
-    //                 'February'.date('Y'),
-    //                 'March'.date('Y'),
-    //                 'April'.date('Y'),
-    //                 'May'.date('Y'),
-    //                 'June'.date('Y'),
-    //                 'July'.date('Y'),
-    //                 'August'.date('Y'),
-    //                 'September'.date('Y'),
-    //                 'October'.date('Y'),
-    //                 'November'.date('Y'),
-    //                 'December'.date('Y'),
-    //             );
-    //             $LinksData = UserLinks::leftJoin('user_link_favorites as favorite','user_links.id','=','favorite.link_id')->where('user_links.userid',$userid)->where('user_links.status',1)->where('showOnDashboard',1)->select('user_links.*','favorite.id as favorite_id','favorite.userid as favorite_userid','favorite.link_id as link_id')->get();
-    //             if(!empty($LinksData) && count($LinksData) > 0) {
-    //                 $TotalLinks = count($LinksData);
-    //                 $view = view("partials.dashboard.link_details",compact('LinksData','TotalLinks','months'))->render();
-    //                 return response()->json(['status' => '200','data' => $view]);
-    //             } else {    
-    //                 $msg = "No details to display.";
-    //                 $view = view("partials.dashboard.empty_link",compact('msg'))->render();
-    //                 return response()->json(['status' => '204','data' => $view]);
-    //             }
-    //         } else {
-    //             $LinksData = UserLinks::where('userid',$userid)->where('link_code','like','%'.$request->link_code.'%')->where('status',1)->get();
-    //             if(!empty($LinksData) && count($LinksData) > 0) {
-    //                 $TotalLinks = count($LinksData);
-    //                 $view = view("partials.dashboard.link_details",compact('LinksData','TotalLinks'))->render();
-    //                 return response()->json(['status' => '200','data' => $view]);
-    //             } else {    
-    //                 $msg = "No details to display.";
-    //                 $view = view("partials.dashboard.empty_link",compact('msg'))->render();
-    //                 return response()->json(['status' => '204','data' => $view]);
-    //             }
-    //         }
-    //     } else {
-    //         return response()->json(['status' => '404']);
-    //     }
-    // }
 
     public function getMonthlyReport(Request $request) {
         //$monthly_report = DB::table('links_repots')->select(DB::raw("COUNT(id) as total_clicks"), DB::raw("MONTH(created_at) as month"))->where('link_id',$request->link_id)->whereYear('created_at',date('Y'))->groupBy('month')->get();
