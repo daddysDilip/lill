@@ -1,6 +1,6 @@
 @extends('layouts.client_dashboard_layout')
 @section('title')
-    Dashboard
+    Links Detail
 @endsection
 @section('css')
 <style>

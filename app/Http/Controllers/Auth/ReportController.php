@@ -53,8 +53,10 @@ class ReportController extends Controller
         if(Auth::guard('user')->check()) {
             $userid = Auth::guard('user')->user()->id;
             $LinksData = UserLinks::where('userid',$userid)->select('id','website_url','generated_link','link_title','link_code','qr_code')->get();
+            $LinkCountrys = DB::table('links_reports')->leftJoin('user_links as ul','ul.id','=','links_reports.link_id')->where('ul.userid',$userid)->select('countryName', 'countryCode')->groupBy('countryCode')->get();
+
             $TotalLinks = count($LinksData);
-            return view('client_dashboard',compact('LinksData','TotalLinks'));
+            return view('client_dashboard',compact('LinksData','TotalLinks','LinkCountrys'));
         }
         return redirect()->route('user.signin');
     }

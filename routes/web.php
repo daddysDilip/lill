@@ -187,6 +187,7 @@ Route::get('auth/google', 'Auth\GoogleController@redirectToGoogle')->name('user.
 Route::get('auth/google/callback', 'Auth\GoogleController@handleGoogleCallback');
 
 Route::get('/user-dashboard','Auth\LoginController@showClientDashboard')->name('user.dashboard');
+// Route::get('/user-link-details','Auth\LoginController@showLinkDetails')->name('user.link.detail');
 
 
 //Route::get('/{slug}','Client\URLReadController@fetchLinkSchema');

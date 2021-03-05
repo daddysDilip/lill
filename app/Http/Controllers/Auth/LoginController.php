@@ -109,6 +109,26 @@ class LoginController extends Controller
     public function showClientDashboard() {
         if(Auth::guard('user')->check()) {
             $userid = Auth::guard('user')->user()->id;
+            $TotalLinks = UserLinks::where('userid',$userid)->count();
+            // pr($TotalLinks);
+
+            $LatestHitLinks = DB::table('user_links as ul')->leftJoin('links_reports','ul.id','=','links_reports.link_id')->where('userid',$userid)->select('ul.id','ul.website_url','ul.generated_link','ul.link_title','ul.link_code',DB::raw('count(links_reports.id) as click_count'))->groupBy('ul.id')->take(5)->orderBy('links_reports.id', 'DESC')->get();
+            // pr($LatestHitLinks);
+
+            $trendingLinks = DB::table('user_links as ul')->leftJoin('links_reports','ul.id','=','links_reports.link_id')->where('userid',$userid)->select('ul.id','ul.website_url','ul.generated_link','ul.link_title','ul.link_code', DB::raw('count(links_reports.id) as click_count'))->groupBy('ul.id')->take(5)->orderBy('click_count', 'DESC')->get();
+            // pr($trendingLinks);
+
+            $maxClickLocation = DB::table('links_reports')->leftJoin('user_links as ul','ul.id','=','links_reports.link_id')->where('links_reports.countryCode','<>',"")->where('ul.userid',$userid)->select(DB::raw('count(links_reports.id) as click_count'), 'countryName', 'countryCode')->groupBy('countryCode')->orderBy('click_count', 'DESC')->first();
+            // pr($maxClickLocation); die;
+
+            return view('client_home',compact('LatestHitLinks','TotalLinks','trendingLinks','maxClickLocation'));
+        }
+        return redirect()->route('user.signin');
+    }
+
+    /*public function showClientDashboard_old() {
+        if(Auth::guard('user')->check()) {
+            $userid = Auth::guard('user')->user()->id;
             $LinksData = UserLinks::where('userid',$userid)->select('id','website_url','generated_link','link_title','link_code','qr_code')->get();
             $LinkCountrys = DB::table('links_reports')->leftJoin('user_links as ul','ul.id','=','links_reports.link_id')->where('ul.userid',$userid)->select('countryName', 'countryCode')->groupBy('countryCode')->get();
 
@@ -116,7 +136,7 @@ class LoginController extends Controller
             return view('client_dashboard',compact('LinksData','TotalLinks','LinkCountrys'));
         }
         return redirect()->route('user.signin');
-    }
+    }*/
 
     public function checkRestrictUser($email) {
         $user = User::where('email',$email)->where('status',1)->first();
