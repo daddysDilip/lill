@@ -150,7 +150,7 @@
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="first-name-vertical">Total Links <i data-toggle="tooltip" title="Total Basic Links Per Package" class="bx bx-info-circle"></i></label>
+                                                        <label for="first-name-vertical">Total Links /Month<i data-toggle="tooltip" title="Total Basic Links Per month" class="bx bx-info-circle"></i></label>
                                                         <input type="text" name="total_links" value="{{$Plan->total_links ?? ''}}" id="total_links" placeholder="Enter total basic links" class="form-control" >
                                                         @error('total_links')
                                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -184,19 +184,67 @@
                                                         @enderror
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="first-name-vertical">Total Link Click <i data-toggle="tooltip" title="Total number of clicks be allow on a link" class="bx bx-info-circle"></i></label>
+                                                        <input type="text" name="total_link_click" value="{{$Plan->total_link_click ?? ''}}" id="total_link_click" placeholder="Leave empty if unlimited" class="form-control" >
+                                                        @error('total_link_click')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    {{-- for balance fields --}}
+                                                </div>
                                                 <div class="col-4">
                                                     <div class="form-group">
                                                         <div class="checkbox1">
-                                                            <input type="checkbox" name="status" {{ isset($Plan->status) ? (($Plan->status == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="checkbox3">
-                                                            <label for="checkbox3">Active</label>
+                                                            <input type="checkbox" name="status" {{ isset($Plan->status) ? (($Plan->status == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="checkbox1">
+                                                            <label for="checkbox1">Active</label>
+                                                        </div>
+                                                        <div class="checkbox3">
+                                                            <input type="checkbox" name="is_qrcode" {{ isset($Plan->is_qrcode) ? (($Plan->is_qrcode == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="is_qrcode">
+                                                            <label for="is_qrcode">QR Code available</label>
                                                         </div>
                                                         <div class="checkbox2">
                                                             <input type="checkbox" name="isFree" {{ isset($Plan->isFree) ? (($Plan->isFree == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="isFree">
-                                                            <label for="checkbox3">Is Free</label>
+                                                            <label for="isFree">Is Free</label>
                                                         </div>
                                                         @error('status')
                                                             <div class="alert alert-danger  ">{{ $message }}</div>
                                                         @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <div class="link_track">
+                                                            <input type="checkbox" name="link_track" {{ isset($Plan->link_track) ? (($Plan->link_track == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="link_track">
+                                                            <label for="link_track">link track</label>
+                                                        </div>
+                                                        <div class="link_filtering">
+                                                            <input type="checkbox" name="link_filtering" {{ isset($Plan->link_filtering) ? (($Plan->link_filtering == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="link_filtering">
+                                                            <label for="link_filtering">link filtering</label>
+                                                        </div>
+                                                        <div class="custom_back_half">
+                                                            <input type="checkbox" name="custom_back_half" {{ isset($Plan->custom_back_half) ? (($Plan->custom_back_half == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="custom_back_half">
+                                                            <label for="custom_back_half">custom back half</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <div class="link_analytics">
+                                                            <input type="checkbox" name="link_analytics" {{ isset($Plan->link_analytics) ? (($Plan->link_analytics == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="link_analytics">
+                                                            <label for="link_analytics">link analytics</label>
+                                                        </div>
+                                                        <div class="link_history">
+                                                            <input type="checkbox" name="link_history" {{ isset($Plan->link_history) ? (($Plan->link_history == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="link_history">
+                                                            <label for="link_history">link history</label>
+                                                        </div>
+                                                        <div class="social_media_shering">
+                                                            <input type="checkbox" name="social_media_shering" {{ isset($Plan->social_media_shering) ? (($Plan->social_media_shering == 1) ? 'checked' : '') : '' }} value="1" class="checkbox-input" id="social_media_shering">
+                                                            <label for="social_media_shering">social media shering</label>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 d-flex justify-content-end">

@@ -25,9 +25,9 @@
                 </div>
               </div>
               <div class="col-12 col-sm-5 px-0 d-flex justify-content-end align-items-center px-1 mb-2">
-                <a href="#" class="btn btn-sm mr-25 border"><i class="bx bx-envelope font-small-3"></i></a>
+                {{-- <a href="#" class="btn btn-sm mr-25 border"><i class="bx bx-envelope font-small-3"></i></a> --}}
                 <a href="#" class="btn btn-sm mr-25 border">Profile</a>
-                <a href="https://www.pixinvent.com/demo/frest-clean-bootstrap-admin-dashboard-template/html/ltr/vertical-menu-template/page-users-edit.html" class="btn btn-sm btn-primary">Edit</a>
+                <a href="{{ route('users.edit', $CustomerData->id) }}" class="btn btn-sm btn-primary">Edit</a>
               </div>
             </div>
             <!-- users view media object ends -->
@@ -89,7 +89,7 @@
                                 <td>Company Size:</td>
                                 <td>{{$CustomerData->company_size ?? '-'}}</td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td>Country</td>
                                 <td>{{$CustomerData->country_name ?? ''}}</td>
                             </tr>
@@ -100,7 +100,7 @@
                             <tr>
                                 <td>City</td>
                                 <td>{{$CustomerData->city_name ?? ''}}</td>
-                            </tr>
+                            </tr> --}}
                             </tbody>
                         </table>
                     </div>

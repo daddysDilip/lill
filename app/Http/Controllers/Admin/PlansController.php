@@ -69,6 +69,14 @@ class PlansController extends Controller
         $plan->total_branded_links = $request->input('total_branded_links');
         $plan->total_users = $request->input('total_users');
         $plan->total_custom_domains = $request->input('total_custom_domains');
+        $plan->total_link_click = $request->input('total_link_click');
+        $plan->link_track = (!empty($request->input('link_track') || $request->input('link_track') == 1) ? 1 : 0);
+        $plan->link_filtering = (!empty($request->input('link_filtering') || $request->input('link_filtering') == 1) ? 1 : 0);
+        $plan->custom_back_half = (!empty($request->input('custom_back_half') || $request->input('custom_back_half') == 1) ? 1 : 0);
+        $plan->link_analytics = (!empty($request->input('link_analytics') || $request->input('link_analytics') == 1) ? 1 : 0);
+        $plan->link_history = (!empty($request->input('link_history') || $request->input('link_history') == 1) ? 1 : 0);
+        $plan->social_media_shering = (!empty($request->input('social_media_shering') || $request->input('social_media_shering') == 1) ? 1 : 0);
+        $plan->is_qrcode = (!empty($request->input('is_qrcode') || $request->input('is_qrcode') == 1) ? 1 : 0);
         $plan->status = (!empty($request->input('status') || $request->input('status') == 1) ? 1 : 0);
         $plan->created_at = getDateTime();
 
@@ -167,7 +175,15 @@ class PlansController extends Controller
         $plan->total_branded_links = $request->input('total_branded_links');
         $plan->total_users = $request->input('total_users');
         $plan->total_custom_domains = $request->input('total_custom_domains');
+        $plan->total_link_click = $request->input('total_link_click');
+        $plan->link_track = (!empty($request->input('link_track') || $request->input('link_track') == 1) ? 1 : 0);
+        $plan->link_filtering = (!empty($request->input('link_filtering') || $request->input('link_filtering') == 1) ? 1 : 0);
+        $plan->custom_back_half = (!empty($request->input('custom_back_half') || $request->input('custom_back_half') == 1) ? 1 : 0);
+        $plan->link_analytics = (!empty($request->input('link_analytics') || $request->input('link_analytics') == 1) ? 1 : 0);
+        $plan->link_history = (!empty($request->input('link_history') || $request->input('link_history') == 1) ? 1 : 0);
+        $plan->social_media_shering = (!empty($request->input('social_media_shering') || $request->input('social_media_shering') == 1) ? 1 : 0);
         $plan->status = (!empty($request->input('status') || $request->input('status') == 1) ? 1 : 0);
+        $plan->is_qrcode = (!empty($request->input('is_qrcode') || $request->input('is_qrcode') == 1) ? 1 : 0);
         $plan->created_at = getDateTime();
 
         $moduleId = get_module("update_plan");

@@ -63,12 +63,14 @@ class UserController extends Controller
         $activeMenu = "reports";
         $subMenu = "manage_customers";
         $CustomerData = User::leftJoin('site_roles','users.roleid','=','site_roles.id')
-                                ->leftJoin('country','users.country','=','country.id')
+                                ->where('users.id',$id)
+                                ->select('users.*','site_roles.id as roleid','site_roles.name as role_name')
+                                ->first();
+                                /*->leftJoin('country','users.country','=','country.id')
                                 ->leftJoin('state','users.state','=','state.id')
                                 ->leftJoin('city','users.city','=','city.id')
-                                ->where('users.id',$id)
-                                ->select('users.*','site_roles.id as roleid','site_roles.name as role_name','country.id as country','country.name as country_name','state.id as state','state.name as state_name','city.id as city','city.name as city_name')
-                                ->first();
+                                ,'country.id as country','country.name as country_name','state.id as state','state.name as state_name','city.id as city','city.name as city_name'
+                                */
         
         //Adding Log Details.
         $moduleId = get_module("view_customer");
@@ -118,9 +120,9 @@ class UserController extends Controller
             'firstname' => ['required','string'],
             'lastname' => ['required','string'],
             'email' => ['required','string', 'email', 'max:255', 'unique:users'],
-            'country' => ['required'],
-            'state' => ['required'],
-            'city' => ['required'],
+            // 'country' => ['required'],
+            // 'state' => ['required'],
+            // 'city' => ['required'],
             'role' => ['required'],
         ]); 
 
@@ -137,9 +139,9 @@ class UserController extends Controller
                 $user->lastname = $request->input('lastname');
                 $user->email = $request->input('email');
                 $user->password = Hash::make($request->input('password'));
-                $user->country = $request->input('country');
-                $user->state = $request->input('state');
-                $user->city = $request->input('city');            
+                // $user->country = $request->input('country');
+                // $user->state = $request->input('state');
+                // $user->city = $request->input('city');            
                 $user->roleid = $request->input('role');
                 $user->status = empty($request->input('status')) ? 0 : $request->input('status');
                 $user->created_at = $date;
@@ -200,16 +202,17 @@ class UserController extends Controller
         $User = User::find($id);
         $activeMenu = "users";
         $subMenu = "manage_users";
-        $Country = get_country();
-        $State = get_state();
-        $City = get_city();
+        // $Country = get_country();
+        // $State = get_state();
+        // $City = get_city();
         $Role = get_roles();
 
         //Adding Log Data.
         $moduleId = get_module("edit_user");
         $log = add_log('info','View edit user form.',$moduleId,Auth::guard('admin')->user()->id,getDateTime());
 
-        return view('users.create',compact('activeMenu','subMenu','Country','State','City','Role','User'));
+        return view('users.create',compact('activeMenu','subMenu','Role','User'));
+        //,'Country','State','City'
     }
 
     /**
@@ -226,9 +229,9 @@ class UserController extends Controller
             'lastname' => ['required','string'],
             'email' => ['required','string', 'email', 'max:255'],
             'contactno' => ['required'],
-            'country' => ['required'],
-            'state' => ['required'],
-            'city' => ['required'],
+            // 'country' => ['required'],
+            // 'state' => ['required'],
+            // 'city' => ['required'],
             'role' => ['required']
         ]);
 
@@ -240,9 +243,9 @@ class UserController extends Controller
             $user->firstname = $request->input('firstname');
             $user->lastname = $request->input('lastname');
             $user->contactno = $request->input('contactno');
-            $user->country = $request->input('country');
-            $user->state = $request->input('state');
-            $user->city = $request->input('city');            
+            // $user->country = $request->input('country');
+            // $user->state = $request->input('state');
+            // $user->city = $request->input('city');            
             $user->roleid = $request->input('role');
             $user->status = empty($request->input('status')) ? 0 : $request->input('status');
             $user->updated_at = $date;
@@ -317,9 +320,9 @@ class UserController extends Controller
             'lastname' => ['required','string'],
             'email' => ['required','string', 'email', 'max:255'],
             'contactno' => ['required'],
-            'country' => ['required'],
-            'state' => ['required'],
-            'city' => ['required'],
+            // 'country' => ['required'],
+            // 'state' => ['required'],
+            // 'city' => ['required'],
         ]);
         
         $moduleId = get_module("edit_user");
@@ -346,9 +349,9 @@ class UserController extends Controller
             $user->firstname = $request->input('firstname');
             $user->lastname = $request->input('lastname');
             $user->contactno = $request->input('contactno');
-            $user->country = $request->input('country');
-            $user->state = $request->input('state');
-            $user->city = $request->input('city');            
+            // $user->country = $request->input('country');
+            // $user->state = $request->input('state');
+            // $user->city = $request->input('city');            
             $user->updated_at = $date;
 
             if($user->save()) {

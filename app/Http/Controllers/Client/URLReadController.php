@@ -67,6 +67,7 @@ class URLReadController extends Controller
             $link_report->browser_language = $lang;
             $link_report->created_at = getDateTime();
 
+            // echo view('users.set_meta');
             //Checks if current date = click_date
             $check_unique_click = Report::where('ip_address',get_ip())->where('link_id',$link->id)->whereDate('created_at',date('Y-m-d'))->select('id','ip_address','created_at')->first();
             if(!empty($check_unique_click)) {

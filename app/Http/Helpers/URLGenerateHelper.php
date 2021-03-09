@@ -298,6 +298,11 @@ function pr($data)
     print_r(json_decode(json_encode($data),true));
     echo '</pre>';
 }
+/*
+function get_user_plan($userid)
+{
+
+}*/
 
 function get_map_country()
 {

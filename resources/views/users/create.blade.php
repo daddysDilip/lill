@@ -75,7 +75,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 col-12">
+                                                {{-- <div class="col-md-4 col-12">
                                                     <div class="form-group">
                                                         <label for="first-name-vertical">Country *</label>
                                                         <select name="country" id="country" class="form-control">
@@ -122,7 +122,7 @@
                                                             <div class="alert alert-danger">{{ $message }}</div>
                                                         @enderror
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-md-4 col-12">
                                                     <div class="form-group">
                                                         <label for="first-name-vertical">Email *</label>
@@ -229,7 +229,7 @@
                     },
                 }
             });
-
+/*
             $('#country').change(function() {
                 var countryID = $(this).val();
                 if (countryID) {
@@ -294,7 +294,7 @@
                     $("#city").append('<option value="">---Choose City---</option>');
                 }
 
-            });
+            });*/
         })
     </script>
 @endsection

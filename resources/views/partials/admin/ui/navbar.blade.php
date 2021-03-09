@@ -56,9 +56,7 @@
             <li class="dropdown nav-item {{$activeMenu == "users" ? "active" : ""}}" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="bx bxs-group"></i><span data-i18n="Users">Users</span></a>
                 <ul class="dropdown-menu">
                     <li data-menu="" style="display:{{!get_user_permission("manage_users","view") ? "none" : ""}}"><a class="dropdown-item align-items-center {{$subMenu == "manage_users" ? "active" : ""}}" href="{{route('users')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>Manage Users</a></li>
-                    <li data-menu="" style="display:{{!get_user_permission("manage_roles","view") ? "none" : ""}}"><a class="dropdown-item align-items-center {{$subMenu == "manage_roles" ? "active" : ""}}" href="{{route('roles')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>Roles</a></li>
-                    <li data-menu="" style="display:{{!get_user_permission("manage_modules","view") ? "none" : ""}}"><a class="dropdown-item align-items-center {{$subMenu == "manage_modules" ? "active" : ""}}" href="{{route('modules')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>Modules</a></li>
-                    <li data-menu="" style="display:{{!get_user_permission("manage_permissions","view") ? "none" : ""}}"><a class="dropdown-item align-items-center" href="{{route('permissions')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>Permission</a></li>
+                    
                 </ul>
             </li>
             <li class="dropdown nav-item {{$activeMenu == "plans" ? "active" : ""}}" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="bx bxs-notepad"></i><span data-i18n="Plans">Plans</span></a>
@@ -81,6 +79,9 @@
                     <li data-menu="" style="display:{{!get_user_permission("manage_site_settings","view") ? "none" : ""}}"><a class="dropdown-item align-items-center {{$subMenu == "manage_site_settings" ? "active" : ""}}" href="{{route('settings')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>Site Settings</a></li>
                     <li data-menu="" style="display:{{!get_user_permission("manage_site_logs","view") ? "none" : ""}}"><a class="dropdown-item align-items-center {{$subMenu == "site_logs" ? "active" : ""}}" href="{{route('logs')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>Site Logs</a></li>
                     <li data-menu="" style="display:{{!get_user_permission("manage_site_logs","view") ? "none" : ""}}"><a class="dropdown-item align-items-center {{$subMenu == "manage_faq" ? "active" : ""}}" href="{{route('manage.faq')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>Site FAQ</a></li>
+                    <li data-menu="" style="display:{{!get_user_permission("manage_roles","view") ? "none" : ""}}"><a class="dropdown-item align-items-center {{$subMenu == "manage_roles" ? "active" : ""}}" href="{{route('roles')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>User Roles</a></li>
+                    <li data-menu="" style="display:{{!get_user_permission("manage_modules","view") ? "none" : ""}}"><a class="dropdown-item align-items-center {{$subMenu == "manage_modules" ? "active" : ""}}" href="{{route('modules')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>User Modules</a></li>
+                    <li data-menu="" style="display:{{!get_user_permission("manage_permissions","view") ? "none" : ""}}"><a class="dropdown-item align-items-center" href="{{route('permissions')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>User Permission</a></li>
                     {{-- <li data-menu="" style="display:{{!get_user_permission("manage_link_types","view") ? "none" : ""}}"><a class="dropdown-item align-items-center {{$subMenu == "manage_link_types" ? "active" : ""}}" href="{{route('manage.link.types')}}" data-toggle="dropdown"><i class="bx bx-right-arrow-alt"></i>Link Types</a></li> --}}
                 </ul>
             </li>
