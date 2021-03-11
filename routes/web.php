@@ -26,7 +26,7 @@ Route::get('clean', function() {
  */
 
 Route::get('/shortly-admin','HomeController@showAdminLoginForm')->name('show.admin.login');
-Route::post('/admin-login','Auth\LoginController@adminLogin')->name('admin.login');
+Route::post('/admin-login','Auth\admin\LoginController@adminLogin')->name('admin.login');
 
 Route::get('admin-dashboard',function() {
     if(Auth::guard('admin')->check()) {
@@ -45,6 +45,7 @@ Route::group(['prefix' => 'dashboard'], function()
     Route::get('create-user','Admin\UserController@createUser')->name('users.create');
     Route::post('store-user','Admin\UserController@storeUser')->name('users.store');
     Route::get('edit-user/{id}','Admin\UserController@editUser')->name('users.edit');
+    Route::get('checkout-user/{id}','Admin\UserController@checkoutUser')->name('users.checkout');
     Route::post('update-user/{id}', 'Admin\UserController@updateUser')->name('users.update');
 
     /**
@@ -138,7 +139,7 @@ Route::group(['prefix' => 'dashboard'], function()
      */
     Route::get('user-permission','Admin\PermissionController@index')->name('permissions');
 
-    Route::get('admin-logout','Auth\LoginController@adminLogout')->name('admin.logout');
+    Route::get('admin-logout','Auth\admin\LoginController@adminLogout')->name('admin.logout');
     Route::get('/admin-dashboard','Auth\LoginController@showAdminDashboard')->name('admin.dashboard');
 
     /**
@@ -194,7 +195,7 @@ Route::get('/user-dashboard','Auth\LoginController@showClientDashboard')->name('
 
 Route::get('/bot-detected','Client\URLReadController@showBotPage')->name('link.show.bot');
 
-Route::group(['prefix' => 'user-dashboard'], function() {
+Route::group(['prefix' => 'user-dashboard', 'middleware' => 'validUser'], function() {
     /**
      * Short URL Created & Read Routes
      */

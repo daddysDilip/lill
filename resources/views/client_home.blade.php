@@ -48,7 +48,9 @@
             <div class="row no-gutter links-section">
                 <div class="links-list-block col-lg-4">
                     <b>Max Click From Location</b>
-                    <span>{{$maxClickLocation->countryName}}</span>
+                    @if ($maxClickLocation != null)
+                        <span>{{$maxClickLocation->countryName}}</span>
+                    @endif
                     {{-- <span>{{$maxClickLocation->countryCode}}</span>
                     <span>{{$maxClickLocation->click_count}}</span> --}}
 

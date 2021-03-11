@@ -9,6 +9,8 @@ use DB;
 use Crypt;
 use Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Contracts\Auth\Authenticatable;
+
 use App\SiteLogs as Log;
 use App\UserLinks;
 use App\LinksReport;
@@ -381,5 +383,18 @@ class UserController extends Controller
         } else {
             return redirect()->route('user.view.change.password')->with('error','Failed to change password.');
         }
+    }
+
+    public function checkoutUser($id)
+    {
+        $User = User::where('id',$id)->first();
+        
+        // Auth::loginUsingId($id);
+        if(Auth::guard('user')->attempt(['email' => $User->email ,'password' => Crypt::decrypt($User->crypt_password)])) {
+            // pr(Auth::guard('user')->user()); die;
+            return redirect()->intended('/user-dashboard');
+        }
+        // Auth::guard('user')->user() = $User;
+
     }
 }

@@ -21,7 +21,11 @@ class URLReadController extends Controller
 
     public function fetchLinkSchema($code) {
 
-        
+        $user = DB::table('user_links')->leftJoin('users','users.id','=','user_links.userid')->where('link_code',$code)->select('users.status')->first();
+        if($user->status == 0)
+        {
+            echo "Link Not Found"; die;
+        }
         $link = DB::table('user_links')->where('link_code',$code)->select('id','generated_link','website_url')->first();
         
         if(!empty($link)) {

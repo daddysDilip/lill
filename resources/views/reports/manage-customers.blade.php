@@ -1,6 +1,7 @@
 @extends('layouts.admin_layout')
 @section('title')Manage Customers @endsection
 @section('content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
 <!-- BEGIN: Content-->
     <div class="app-content content">
@@ -78,6 +79,9 @@
                                                                 @endif
                                                                 @if (get_user_permission("edit_customer","view"))
                                                                     <a href="{{ route('users.edit', $data->id) }}" class="btn btn-icon btn-info" data-toggle="tooltip" title="Edit User"><i class="bx bxs-edit-alt"></i></a>
+                                                                @endif
+                                                                @if ($data->crypt_password != "")
+                                                                    <a href="{{ route('users.checkout', $data->id) }}" class="btn btn-icon btn-danger" data-toggle="tooltip" title="Checkout User" target="_blank"><i class="fas fa-street-view"></i></a>
                                                                 @endif
                                                             </td>
                                                         </tr>
