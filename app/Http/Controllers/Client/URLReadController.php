@@ -116,10 +116,13 @@ class URLReadController extends Controller
             $userid = Auth::guard('user')->user()->id;
             $str = $request->input('search_link');
             $link_query = UserLinks::where('userid',$userid)
-                                ->where('website_url','like','%'.$str.'%')
-                                //->orWhere('generated_link','like','%'.$str.'%')
-                                ->where('status',1)
-                                ->get();
+                        ->where(function($query) use ($str){
+                             $query->where('website_url','like','%'.$str.'%');
+                             $query->orWhere('generated_link','like','%'.$str.'%');
+                             $query->orWhere('link_tags','like','%'.$str.'%');
+                         })       
+                        ->where('status',1)
+                        ->get();
                                 
             if(!empty($link_query)) {
                 //echo json_encode($link_query);
@@ -150,8 +153,11 @@ class URLReadController extends Controller
                 $userid = Auth::guard('user')->user()->id;
                 $str = $request->input('search_link');
                 $LinksData = UserLinks::where('userid',$userid)
-                                ->where('generated_link','like','%'.$str.'%')
-                                ->orWhere('website_url','like','%'.$str.'%')
+                                ->where(function($query) use ($str){
+                                     $query->where('website_url','like','%'.$str.'%');
+                                     $query->orWhere('generated_link','like','%'.$str.'%');
+                                     $query->orWhere('link_tags','like','%'.$str.'%');
+                                 })
                                 ->where('status',1)
                                 ->get();
                 // dd($LinksData);
