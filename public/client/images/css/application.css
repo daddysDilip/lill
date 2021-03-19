@@ -534,7 +534,8 @@ a, button {
       padding: 10px 0 10px 0;
       border-bottom: 1px solid #e5e5e5; }
       .header-middle .brand-logo img {
-        width: 120px; } }
+        width: 120px;
+       } }
 
 .download-app ul li a {
   font-family: "Nunito-Regular", sans-serif;

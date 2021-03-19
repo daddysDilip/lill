@@ -25,11 +25,15 @@ class HomeController extends Controller
     }
     
     public function showPricing() {
-        $Plans = Plans::where('status',1)->orderBy('id','ASC')->get();
+        $Plans = Plans::orderBy('id','ASC')->get();
         // dd($Plans->toArray());
         return view('pricing',compact('Plans'));
     }
-
+    public function showPricingDetail($id) {
+        $Plans = Plans::where('id',$id)->get();
+        // dd($Plans->toArray());
+        return view('pricing_detail',compact('Plans'));
+    }
     public function showFAQ() {
         $FAQ = FAQ::getActiveFAQ();
         return view('faq',compact('FAQ'));

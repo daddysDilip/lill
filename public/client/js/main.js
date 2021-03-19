@@ -118,3 +118,30 @@
 $(document).ready(function () {
     $('#rotate').rotaterator({ fadeSpeed: 900, pauseSpeed: 300 });
 });
+
+
+
+  // Header Active
+ $(document).ready(function () {
+  var path = window.location.href;
+  $('.nav-list .nav-list__item a').each(function () {
+      if (this.href === path) {
+          $(this).addClass('active');
+      }
+  });
+ });
+
+ //whatsAppNumber
+
+ function fnOpenWhatsApp(text) {
+    var whatsAppNumber = '+917718875589';
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        var whatsapp_url = 'whatsapp://send?text=' + text + '&phone=' + whatsAppNumber
+        window.location.href = whatsapp_url;
+    } else {
+        window.open(
+            'https://web.whatsapp.com/send?phone=' + whatsAppNumber + '&text=' + text,
+            '_blank'
+        );
+    }
+}

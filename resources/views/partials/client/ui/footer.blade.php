@@ -72,3 +72,8 @@
         <i class="sprite back-to-top"></i>
     </a>
 </div>
+
+
+<div class="whatsapp-fixed position-fixed rounded-circle  d-xl-block">
+    <a href="javascript:void(0)" class="d-flex align-items-center justify-content-center h-100" onclick="fnOpenWhatsApp('Hello i am interested for Website and App Development.', +917211112054)"  title="Daddyscode Whatsapp Inquiry" ><img src="{{asset('client/images/whatsapp.svg')}}" alt=""></i></a>
+</div>

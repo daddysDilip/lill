@@ -18,6 +18,12 @@ class ValidUser
     public function handle($request, Closure $next)
     {
         if(empty(Auth::guard('admin')->user())){
+            if(Auth::guard('user')->user() == null)
+            {
+                Session::flush();
+                Auth::logout();
+                return redirect('/');
+            }
             $status = Auth::guard('user')->user()->status;
             $roleid = Auth::guard('user')->user()->roleid;
             if($roleid != 0 && $status == '0'){

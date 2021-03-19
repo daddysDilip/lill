@@ -18,6 +18,17 @@ use App\SiteNotifications as Notification;
 
 class AccountController extends Controller
 {
+    public function __construct()
+    {
+        // var_dump(Auth::guard('user')->user()); die;
+        //$this->guard('user')->except('logout');
+        /*if(Auth::guard('user')->user() == null)
+        {
+            // die('aaaaaaaaaaaaa');
+            return redirect('/login');
+        }*/
+        // die('bbbbbbbbbbbb');
+    }
     public function showAccountSettings($tab) {
         $userid = Auth::guard('user')->user()->id;
         if($tab == 'account-details') {

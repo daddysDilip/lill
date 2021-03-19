@@ -164,6 +164,7 @@ Route::get('/fetch-permission','Admin\PermissionController@fetchPermission')->na
  * Client Routes
  */
  Route::get('pricing','HomeController@showPricing')->name('pricing');
+ Route::get('pricing-detail/{id}','HomeController@showPricingDetail')->name('pricing-detail');
  Route::get('faq','HomeController@showFAQ')->name('faq');
  Route::get('about','HomeController@showAbout')->name('about');
  Route::get('privacy-policy','HomeController@showprivacypolicy')->name('privacy.and.policy');

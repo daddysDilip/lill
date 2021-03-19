@@ -995,6 +995,15 @@ a, button {
             left: 0;
             right: 0;
         }
+        .nav-list__item > a.active {
+            color: #1958F5;
+        }
+    
+            .nav-list__item > a.active::after {
+                width: 100%;
+                left: 0;
+                right: 0;
+            }
 }
 
 .nav-list__item > a {
@@ -1672,8 +1681,7 @@ a, button {
     color: #C4C4C4;
     font-size: 18px;
 }
-
-    .email-verification-sec .or::after {
+.email-verification-sec .or::after {
         border-bottom: 1px solid #c4c4c4;
         position: absolute;
         top: 10px;
@@ -1682,7 +1690,7 @@ a, button {
         content: '';
         width: 100%;
         z-index: -1;
-    }
+ }
 
 .email-verification-sec .forgot-link {
     top: 15px;
@@ -1783,7 +1791,7 @@ a, button {
 
     .dashboard-sec .top-area .search {
         background-color: #ffffff;
-        padding: 5px;
+        padding: 0px;
         -webkit-box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
         -moz-box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
         box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
@@ -2295,3 +2303,185 @@ background-position: -46px -128px;
 width: 13px;
 height: 11px;
 }
+
+/* css start by aayushi */
+.dashboard-sec .top-area  .fillter-area .fillters{
+    background-color: #ffffff;
+    padding: 5px;
+    -webkit-box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
+}
+.dashboard-sec .top-area  .sorting{
+    background-color: #ffffff;
+    padding: 5px;
+    -webkit-box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-sec .box-bg{
+    background-color: #F4F4F4;
+    border-radius: 15px;
+    padding: 50px;
+}
+
+
+.dashboard-sec .box-bg .client-home-card{
+    background-color: #ffffff;
+    padding: 5px;
+    -webkit-box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 25px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    max-height: 350px;
+    height: 100%;
+}
+
+
+.dashboard-sec .box-bg .client-home-card .title{
+    padding: 10px;
+    border-bottom: 0.5px solid #000000;
+}
+
+.dashboard-sec .box-bg .client-home-card .title h4 {
+  
+text-align: center;
+font-size: 18px;
+color: #000;
+}
+
+.dashboard-sec .box-bg .client-home-card .list  {
+    padding: 10px;
+}
+.dashboard-sec .box-bg .client-home-card .list a {
+text-decoration: none;
+ text-align: left;
+ font-size: 14px;
+line-height: 25px;
+cursor: pointer;
+color: #000;
+}
+.dashboard-sec .box-bg .client-home-card .list-2  {
+ padding: 10px;
+  text-align: center;
+ font-size: 14px;
+line-height: 19px
+}
+
+.pricing-detail-sec  .category-title{
+    background: #F4F4F4;
+    padding: 20px;
+}
+.pricing-detail-sec  .category-title h3{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+    color: #858585;
+    text-align: left;
+}
+.pricing-detail-sec .plan-detail-card{
+    background-color: #F4F4F4;
+    padding: 50px 50px;
+    max-height: 400px;
+    height: 100%;
+}
+.pricing-detail-sec .plan-detail-card .price-detail p {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #858585;
+}
+.pricing-detail-sec .plan-detail-card .price-detail h4 {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #555555;
+}
+.pricing-detail-sec .plan-detail-card .custom-file {
+    width: 300px;
+    height: 40px;
+    background-color: #ffffff;
+    border: 1px solid #C4C4C4;
+    border-radius: 5px;
+    position: relative;
+}
+
+.pricing-detail-sec .plan-detail-card  .custom-file span {
+    font-size: 1rem;
+    line-height: 2;
+    color: #C4C4C4;
+    display: block;
+    text-align: left;
+    padding: 5px;
+}
+
+.pricing-detail-sec .plan-detail-card .custom-file input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    opacity: 0;
+    cursor: pointer;
+}
+.pricing-detail-sec .table.no-border tr td, .table.no-border tr th {
+    border-width: 0;
+  }
+  
+  .pricing-detail-sec .table.no-border tr td{
+    font-size: 15px;
+    line-height: 17px;
+    color: #555555;
+    padding: 20px 15px;
+    font-family: "Nunito-Regular", sans-serif;
+    font-weight: 600;
+}
+.pricing-detail-sec .table.no-border tr td span{
+    font-size: 12px;
+    color: #858585;
+}
+  .pricing-detail-sec  .jumbotron {
+    padding: 5px inherit;
+  }
+.pricing-detail-sec .plan-detail-card .custom-file::after {
+    content: "Upload";
+    background: -webkit-gradient(linear, left top, left bottom, from(#1958F5), to(#4620FE));
+    background: -webkit-linear-gradient(top, #1958F5 0%, #4620FE 100%);
+    background: -o-linear-gradient(top, #1958F5 0%, #4620FE 100%);
+    background: linear-gradient(180deg, #1958F5 0%, #4620FE 100%);    color: #fff;
+    width: 100px;
+    height: 38px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    line-height: 40px;
+    text-align: center;
+}
+
+.whatsapp-fixed{bottom:10px;left:10px;background:#25D366;width:50px;height:50px;z-index:99;}
+
+
+@media screen and (max-width: 767px) {
+    .dashboard-sec .box-bg{
+        padding: 20px;
+    }
+    .dashboard-sec .box-bg .client-home-card .list a {
+         font-size: 12px;
+        }
+
+    .pricing-detail-sec .plan-detail-card .price-detail h4 {
+        font-size: 15px;
+        }
+
+    .brand-logo-mobile{
+        width: 90px;
+    }
+}
+
+
+
+
