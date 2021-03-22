@@ -3,112 +3,112 @@
 @section('content')
     @include('tools.spinner')
     <div class="create-link-sec pt-4 pb-4">
-            <div class="container">
-                {{-- <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('My First QR code')) !!} "> --}}
-                <div class="col-lg-10 offset-lg-1">
-                    <div class="media mt-4 mb-4 meta-block">
-                        <img class="mr-3 website-favicon" src="{{asset('client/images/computer.png')}}" style="width:50px;" />
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1 heading-s2 website-short-url">lill.pw/rrooiwo</h5>
-                            <p class="website-title">
-                                DaddysCode Hire mobile app developers at best cost for mobile app & game development in
-                                Surat
-                            </p>
+        <div class="container">
+            {{-- <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('My First QR code')) !!} "> --}}
+            <div class="col-lg-10 offset-lg-1">
+                <div class="media mt-4 mb-4 meta-block">
+                    <img class="mr-3 website-favicon" src="{{asset('client/images/computer.png')}}" style="width:50px;" />
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1 heading-s2 website-short-url">lill.pw/rrooiwo</h5>
+                        <p class="website-title">
+                            DaddysCode Hire mobile app developers at best cost for mobile app & game development in
+                            Surat
+                        </p>
+                    </div>
+                </div>
+                <div class="">
+                    <form id="ClientCreateLinkForm">
+                        @csrf
+                        <input type="hidden" name="link_title" id="link_title" />
+                        <input type="hidden" name="link_code" id="link_code" />
+                        <div class="row">
+                            <div class="col-12 mb-3 form-group">
+                                <label class="col-form-label d-flex align-items-center">Destination URL <i
+                                        type="button" class="sprite tooltips tooltip-icon ml-1"
+                                        data-toggle="tooltip" data-placement="right"
+                                        title="Destination URL is the long link you want to shorten"></i></label>
+                                <textarea name="website_url" id="website_url" class="form-control p-3" rows="1"
+                                    placeholder="Type or paste a link (URL)"></textarea>
+                                    <span class="url-msg error"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="">
-                        <form id="ClientCreateLinkForm">
-                            @csrf
-                            <input type="hidden" name="link_title" id="link_title" />
-                            <input type="hidden" name="link_code" id="link_code" />
-                            <div class="row">
-                                <div class="col-12 mb-3 form-group">
-                                    <label class="col-form-label d-flex align-items-center">Destination URL <i
-                                            type="button" class="sprite tooltips tooltip-icon ml-1"
-                                            data-toggle="tooltip" data-placement="right"
-                                            title="Destination URL is the long link you want to shorten"></i></label>
-                                    <textarea name="website_url" id="website_url" class="form-control p-3" rows="1"
-                                        placeholder="Type or paste a link (URL)"></textarea>
-                                        <span class="url-msg error"></span>
+                        <div class="row small-gutter">
+                            {{-- <div class="col-lg-6 form-group">
+                                <label class="col-form-label">Domain</label>
+                                <input class="form-control" type="text" placeholder="Enter domain name" />
+                            </div> --}}
+                            <div class="col-lg-12 form-group">
+                                <label class="col-form-label">Slash tag</label>
+                                <input class="form-control" readonly type="text" id="slash_tag" name="slash_tag" placeholder="Slash tag (eg. card)" />
+                            </div>
+                        </div>
+                        <div class="row small-gutter">
+                            <div class="col-lg-12 form-group">
+                                <label class="col-form-label">Tags</label>
+                                <input type="text" id="link_tags" name="link_tags" class="form-control" data-role="tagsinput" />
+                            </div>
+                        </div>
+                        <label class="col-form-label">Choose a slash tag style</label>
+                        <ul class="d-lg-flex mt-3">
+                            <li class="mr-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input mt-0" checked type="radio" value="1" name="link_type" id="r1" />
+                                    <label class="form-check-label" for="r1">
+                                        Shortest
+                                    </label>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
+                                        data-placement="right" title="For shortest your link"></i>
                                 </div>
-                            </div>
-                            <div class="row small-gutter">
-                                {{-- <div class="col-lg-6 form-group">
-                                    <label class="col-form-label">Domain</label>
-                                    <input class="form-control" type="text" placeholder="Enter domain name" />
-                                </div> --}}
-                                <div class="col-lg-12 form-group">
-                                    <label class="col-form-label">Slash tag</label>
-                                    <input class="form-control" readonly type="text" id="slash_tag" name="slash_tag" placeholder="Slash tag (eg. card)" />
+                            </li>
+                            <li class="mr-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input mt-0" type="radio" name="link_type" value="2" id="r2" />
+                                    <label class="form-check-label" for="r2">
+                                        Random
+                                    </label>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
+                                        data-placement="right" title="For rendom sbut short Link"></i>
                                 </div>
-                            </div>
-                            <div class="row small-gutter">
-                                <div class="col-lg-12 form-group">
-                                    <label class="col-form-label">Tags</label>
-                                    <input type="text" id="link_tags" name="link_tags" class="form-control" data-role="tagsinput" />
+                            </li>
+                            <li class="mr-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input mt-0" type="radio" value="3" name="link_type" id="r3" />
+                                    <label class="form-check-label" for="r3">
+                                        Suggested
+                                    </label>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
+                                        data-placement="right" title="For suggested Links"></i>
                                 </div>
-                            </div>
-                            <label class="col-form-label">Choose a slash tag style</label>
-                            <ul class="d-lg-flex mt-3">
-                                <li class="mr-4 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input mt-0" checked type="radio" value="1" name="link_type" id="r1" />
-                                        <label class="form-check-label" for="r1">
-                                            Shortest
-                                        </label>
-                                        <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="For shortest your link"></i>
-                                    </div>
-                                </li>
-                                <li class="mr-4 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input mt-0" type="radio" name="link_type" value="2" id="r2" />
-                                        <label class="form-check-label" for="r2">
-                                            Random
-                                        </label>
-                                        <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="For rendom sbut short Link"></i>
-                                    </div>
-                                </li>
-                                <li class="mr-4 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input mt-0" type="radio" value="3" name="link_type" id="r3" />
-                                        <label class="form-check-label" for="r3">
-                                            Suggested
-                                        </label>
-                                        <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="For suggested Links"></i>
-                                    </div>
-                                </li>
-                                <li class="mr-4 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input mt-0" type="radio" value="4" name="link_type" id="r4" />
-                                        <label class="form-check-label" for="r4">
-                                            Suggested with dash (SEO friendly)
-                                        </label>
-                                        <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="For SEO friendly Link"></i>
-                                    </div>
-                                </li>
-                                <li class="mr-4 mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input mt-0" type="radio" value="5" name="link_type" id="r5" />
-                                        <label class="form-check-label" for="r5">
-                                            Suggested camel case
-                                        </label>
-                                        <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
-                                            data-placement="right" title="For suggested but in camel case link"></i>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="col-lg-6 mt-5 form-group offset-lg-3">
-                                <button class="btn btn-theme btn-block p-2">Create Link</button>
-                            </div>
-                        </form>
-                    </div>
+                            </li>
+                            <li class="mr-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input mt-0" type="radio" value="4" name="link_type" id="r4" />
+                                    <label class="form-check-label" for="r4">
+                                        Suggested with dash (SEO friendly)
+                                    </label>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
+                                        data-placement="right" title="For SEO friendly Link"></i>
+                                </div>
+                            </li>
+                            <li class="mr-4 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input mt-0" type="radio" value="5" name="link_type" id="r5" />
+                                    <label class="form-check-label" for="r5">
+                                        Suggested camel case
+                                    </label>
+                                    <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
+                                        data-placement="right" title="For suggested but in camel case link"></i>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="col-lg-6 mt-5 form-group offset-lg-3">
+                            <button class="btn btn-theme btn-block p-2">Create Link</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 @endsection
 
 @section('js')

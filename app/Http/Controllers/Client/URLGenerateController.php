@@ -321,6 +321,7 @@ class URLGenerateController extends Controller
             $slash_tag = $request->slash_tag;
             $user = Auth::guard('user')->user();
             $link_exist = UserLinks::where('website_url',$website_url)->where('userid',Auth::guard('user')->user()->id)->get();
+            // $link_exist = UserLinks::where('website_url',$website_url)->where('userid',Auth::guard('user')->user()->id)->get();
             if(count($link_exist) > 0) {
                 return json_encode(['status' => 'link-exist','msg' =>'Website URL already exist.']);
             } else {
