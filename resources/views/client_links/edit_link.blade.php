@@ -39,7 +39,8 @@
                                 </div> --}}
                                 <div class="col-lg-12 form-group">
                                     <label class="col-form-label">Slash tag</label>
-                                    <input class="form-control" type="text" id="slash_tag" name="slash_tag" value="{{$Link->generated_link}}" placeholder="Slash tag (eg. card)" />
+                                    (After "{{URL::to('/')}}/")
+                                    <input class="form-control" type="text" id="slash_tag" name="slash_tag" value="{{$Link->link_code}}" placeholder="Slash tag (eg. card)" />
                                 </div>
                             </div>
                             <div class="row small-gutter">
@@ -112,133 +113,145 @@
 @endsection
 
 @section('js')
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        $('.tooltips').tooltip();
-        var clipboard = new ClipboardJS('.btn-copy');   
-        clipboard.on('success', function(e) {
-            $('.btn-copy').html('Copied!');
-            $(".btn-copy").removeClass("btn-copy");
-        });
-        
-        $(document).ajaxSend(function() {
-            $("#overlay").fadeIn(300);　
-        });
-        $(document).ready(function() {
+<script type="text/javascript">
+    $('.tooltips').tooltip();
+    var clipboard = new ClipboardJS('.btn-copy');   
+    clipboard.on('success', function(e) {
+        $('.btn-copy').html('Copied!');
+        $(".btn-copy").removeClass("btn-copy");
+    });
+    $('#slash_tag').keyup(function(){
+        var string = $(this).val();
+        console.log('before---------->',string);
+        string = string.replace(/[&\/\\#^![,+(\])$~%.@'":*?<>{}]/g, '');
+        console.log('after---------->',string);
+        $(this).val(string);
+    });
+    $(document).ajaxSend(function() {
+        $("#overlay").fadeIn(300);　
+    });
+    $(document).ready(function() {
 
-            $.validator.addMethod('validUrl', function (value) { 
-                if(/^(?:(ftp|http|https)?:\/\/)?(?:[\w-]+\.)+([a-z]|[A-Z]|[0-9]){2,6}$/gi.test(value)) {
-                    return true;
-                } 
-                return false;
-            }, 'Please enter valid URL which you want to shorten.');
+        $.validator.addMethod('validUrl', function (value) { 
+            if(/^(?:(ftp|http|https)?:\/\/)?(?:[\w-]+\.)+([a-z]|[A-Z]|[0-9]){2,6}$/gi.test(value)) {
+                return true;
+            } 
+            return false;
+        }, 'Please enter valid URL which you want to shorten.');
 
-            $('#ClientUpdateLinkForm').validate({
-                rules:{
-                    website_url: {
-                        required: function(element) {
-                            if ($("input:radio[name=link_type]").is(':checked')) {
-                                return false;
-                            } else {
-                                return true;
-                            }
-                        },
-                    },
-                    link_type:{
-                        required:true
-                    },
-                    slash_tag:"required"
-                },
-                messages:{
-                    website_url:{
-                        required:"Please enter valid URL.",
-                    },
-                    slash_tag:"Please enter slash tag."
-                },
-                submitHandler: function (form) {
-                    if($('#ClientUpdateLinkForm').valid()) {
-                        $.ajax({
-                            url:"{{route('update.link')}}",
-                            type:"post",
-                            data:$('#ClientUpdateLinkForm').serialize()+"&link_type="+$('input:radio[name=link_type]:checked').val(),
-                            success:function(data) {
-                                var res = JSON.parse(data);
-                                console.log(data);
-                                if(res.status == "link-exist") {
-                                    Swal.fire({ 
-                                        type: "error", 
-                                        title: "Oops!", 
-                                        text: res.msg, 
-                                        showCancelButton: 1,
-                                    })
-                                } else if(res.status == "success") {
-                                    Swal.fire({ 
-                                        type: "success", 
-                                        title: "Done!", 
-                                        text: res.msg, 
-                                        confirmButtonClass: "btn btn-success btn-copy"
-                                    }).then(function(confirm) {
-                                        if(confirm) {
-                                            location.href = "{{url('user-dashboard')}}";
-                                        }  
-                                    })
-                                } else if(res.status == "fail") {
-                                    Swal.fire({ 
-                                        type: "error", 
-                                        title: "Failed!", 
-                                        text: res.msg, 
-                                        showCancelButton: 1,
-                                    })
-                                }
-                            }
-                        }).done(function() {
-                            setTimeout(function(){
-                                $("#overlay").fadeOut(300);
-                            },500);
-                        });
-                    }
-                }
-            });
-
-            $('input:radio[name=link_type]').change(function(e) {
-                link_type = e.target.value;
-                if($('#website_url').val() == "") {
-                    $('.url-msg').html('Please enter valid URL which you want to shorten.');
-                } else {
-                    link_type = e.target.value;
-                    fetchMetaData($.trim(link_type));
-                }   
-            });
-
-            function fetchMetaData(link_type) {
-                $.ajax({
-                    url:"{{route('fetch.website.schema')}}",
-                    type:"post",
-                    data:{website_url:$('#website_url').val(),link_type:link_type,'_token':"{{csrf_token()}}"},
-                    success:function(data) {
-                        var res = JSON.parse(data);
-                        var block = $('.meta-block');
-                        if(res.status == 200) {
-                            $('#slash_tag').val(res.meta_title.link);
-                            $('#link_code').val(res.meta_title.code);
-                        } else if(res.status == 404) {
-                            Swal.fire({ 
-                                type: "error", 
-                                title: "Failed!", 
-                                text: res.msg, 
-                                showCancelButton: 1,
-                            })
+        $('#ClientUpdateLinkForm').validate({
+            rules:{
+                website_url: {
+                    required: function(element) {
+                        if ($("input:radio[name=link_type]").is(':checked')) {
+                            return false;
+                        } else {
+                            return true;
                         }
-                    }
-                }).done(function() {
-                    setTimeout(function(){
-                        $("#overlay").fadeOut(100);
-                    },500);
-                }); 
+                    },
+                },
+                link_type:{
+                    required:true
+                },
+                slash_tag:"required"
+            },
+            messages:{
+                website_url:{
+                    required:"Please enter valid URL.",
+                },
+                slash_tag:"Please enter slash tag."
+            },
+            submitHandler: function (form) {
+                if($('#ClientUpdateLinkForm').valid()) {
+                    $.ajax({
+                        url:"{{route('update.link')}}",
+                        type:"post",
+                        data:$('#ClientUpdateLinkForm').serialize()+"&link_type="+$('input:radio[name=link_type]:checked').val(),
+                        success:function(data) {
+                            var res = JSON.parse(data);
+                            console.log(data);
+                            if(res.status == "link-exist") {
+                                Swal.fire({ 
+                                    type: "error", 
+                                    title: "Oops!", 
+                                    text: res.msg, 
+                                    showCancelButton: 1,
+                                })
+                            } else if(res.status == "bake-half-exist") {
+                                Swal.fire({ 
+                                    type: "error", 
+                                    title: "Oops!", 
+                                    text: res.msg, 
+                                    showCancelButton: 1,
+                                })
+                            } else if(res.status == "success") {
+                                Swal.fire({ 
+                                    type: "success", 
+                                    title: "Done!", 
+                                    text: res.msg, 
+                                    confirmButtonClass: "btn btn-success btn-copy"
+                                }).then(function(confirm) {
+                                    if(confirm) {
+                                        location.href = "{{url('user-dashboard/user-chart-report')}}";
+                                    }  
+                                })
+                            } else if(res.status == "fail") {
+                                Swal.fire({ 
+                                    type: "error", 
+                                    title: "Failed!", 
+                                    text: res.msg, 
+                                    showCancelButton: 1,
+                                })
+                            }
+                        }
+                    }).done(function() {
+                        setTimeout(function(){
+                            $("#overlay").fadeOut(300);
+                        },500);
+                    });
+                }
             }
         });
-    </script>
+
+        $('input:radio[name=link_type]').change(function(e) {
+            link_type = e.target.value;
+            if($('#website_url').val() == "") {
+                $('.url-msg').html('Please enter valid URL which you want to shorten.');
+            } else {
+                link_type = e.target.value;
+                fetchMetaData($.trim(link_type));
+            }   
+        });
+
+        function fetchMetaData(link_type) {
+            $.ajax({
+                url:"{{route('fetch.website.schema')}}",
+                type:"post",
+                data:{website_url:$('#website_url').val(),link_type:link_type,'_token':"{{csrf_token()}}"},
+                success:function(data) {
+                    var res = JSON.parse(data);
+                    var block = $('.meta-block');
+                    if(res.status == 200) {
+                        $('#slash_tag').val(res.meta_title.link);
+                        $('#link_code').val(res.meta_title.code);
+                    } else if(res.status == 404) {
+                        Swal.fire({ 
+                            type: "error", 
+                            title: "Failed!", 
+                            text: res.msg, 
+                            showCancelButton: 1,
+                        })
+                    }
+                }
+            }).done(function() {
+                setTimeout(function(){
+                    $("#overlay").fadeOut(100);
+                },500);
+            }); 
+        }
+    });
+</script>
 @endsection

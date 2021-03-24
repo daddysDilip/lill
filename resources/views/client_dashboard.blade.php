@@ -136,9 +136,9 @@ Links Detail
    </div>
    <div class="middle-area">
       <div class="row no-gutter links-section">
-         <div class="links-list-block col-lg-4">
+         <div class="links-list-block col-lg-5">
          </div>
-         <div class="links-details col-lg-8">
+         <div class="links-details col-lg-7">
          </div>
       </div>
    </div>

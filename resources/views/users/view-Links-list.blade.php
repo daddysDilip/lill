@@ -16,16 +16,26 @@
           <section class="users-view">
             <!-- users view media object start -->
             <div class="row">
-              <div class="col-12 col-sm-7">
+              <div class="col-12 col-md-7">
                 <div class="media mb-2">
-                  <form>
-                    &nbsp Select Date: <input type="text" name="daterange" value="{{$daterange}}" />
-                    <input type="submit" value="Submit">
-                  </form>
-                  
+                <form class="user-link-report-date-form">
+  <div class="form-row align-items-center">
+    <div class="col-auto my-1">
+      <label class="mr-sm-2 mb-2" for="">Select Date:</label>
+      <input class="form-control" type="text" name="daterange" value="{{$daterange}}" />
+    </div>
+ 
+    <div class="col-auto my-1 mt-4">
+      <button type="submit" class="btn  btn-block btn-theme p-2">Submit</button>
+    </div>
+  </div>
+</form>
                 </div>
               </div>
-              <div class="col-12 col-sm-5 px-0 d-flex justify-content-end align-items-center px-1 mb-2">
+
+ 
+
+              <div class="col-12 col-md-5 px-0 d-flex justify-content-end align-items-center px-1 mb-2">
                 
                 {{-- <a href="" class="btn btn-sm btn-primary">Edit</a> --}}
               </div>
@@ -35,7 +45,6 @@
             <div class="card">
               <div class="card-content">
                 <div class="card-body">
-                  
                   <div class="col-12">
                     <div class="table-responsive">
                       <table class="display nowrap" id="CustomerLinksInfo">
@@ -92,7 +101,9 @@
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+        ],
+        "order": [[ 1, "desc" ]], //or asc 
+        "columnDefs" : [{"targets":1, "type":"date"}]
       });
   } );
   $(function() {

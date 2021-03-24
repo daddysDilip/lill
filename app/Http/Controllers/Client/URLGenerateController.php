@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Auth;
 use DB;
+use URL;
 use App\UserLinks;
 use App\Favorite;
 use QrCode;
@@ -319,20 +320,29 @@ class URLGenerateController extends Controller
         if($request->ajax()) {
             $website_url = $request->website_url;
             $slash_tag = $request->slash_tag;
+            $sortLink = URL::to('/')."/".$slash_tag;
             $user = Auth::guard('user')->user();
             $link_exist = UserLinks::where('website_url',$website_url)->where('userid',Auth::guard('user')->user()->id)->get();
-            // $link_exist = UserLinks::where('website_url',$website_url)->where('userid',Auth::guard('user')->user()->id)->get();
+            $generated_link_exist = UserLinks::where('generated_link',$sortLink)->get();
             if(count($link_exist) > 0) {
                 return json_encode(['status' => 'link-exist','msg' =>'Website URL already exist.']);
+            } else if(count($generated_link_exist) > 0) {
+                return json_encode(['status' => 'bake-half-exist','msg' =>'URL back-half already exist.']);
             } else {
+                /*$chunks = explode('/',$slash_tag);
+                unset($chunks[0]);
+                unset($chunks[1]);
+                unset($chunks[2]);*/
+                // $code = implode('/',$chunks);
+
                 $userid = Auth::guard('user')->user()->id;
                 $user_link = new UserLinks();
                 $user_link->userid = $userid;
                 $user_link->website_url = $request->website_url ?? "";
-                $user_link->generated_link = $slash_tag ?? "";
+                $user_link->generated_link = $sortLink ?? "";
                 $user_link->link_title = $request->link_title ?? "";
                 $user_link->link_type = $request->link_type ?? "";
-                $user_link->link_code = $request->link_code ?? "";
+                $user_link->link_code = $slash_tag;
                 $user_link->link_tags = $request->link_tags ?? "";
                 $user_link->ip_address = get_ip();
                 $user_link->domain = $request->domain ?? "";
@@ -430,11 +440,22 @@ class URLGenerateController extends Controller
             $website_url = $request->website_url;
             $slash_tag = $request->slash_tag;
             $link_id = $request->link_id;
+            $sortLink = URL::to('/')."/".$slash_tag;
+            /*$chunks = explode('/',$slash_tag);
+            unset($chunks[0]);
+            unset($chunks[1]);
+            unset($chunks[2]);*/
+            // $code = implode('-',$chunks);
 
             $user_link = UserLinks::where('userid',Auth::guard('user')->user()->id)->where('id',$link_id)->first();
-            $user_link->generated_link = $slash_tag ?? "";
+            $generated_link_exist = UserLinks::where('generated_link',$sortLink)->where('id', '!=', $link_id)->get();
+            if(count($generated_link_exist) > 0) {
+                return json_encode(['status' => 'bake-half-exist','msg' =>'URL back-half already exist.']);
+            }
+            $user_link->generated_link = $sortLink ?? "";
             $user_link->link_type = $request->link_type ?? "";
             $user_link->link_tags = $request->link_tags ?? "";
+            $user_link->link_code = $slash_tag;
             $user_link->ip_address = get_ip();
             $user_link->qr_code = generate_qr($request->slash_tag);
             $user_link->updated_at = getDateTime();

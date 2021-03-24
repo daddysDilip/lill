@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="col-auto position-relative">
-                <div class="text-right">
+                {{-- <div class="text-right">
                     <i class="sprite setting-icon"></i>
                 </div>
                 <div class="filter-options position-absolute bg-white box-shadow p-3">
@@ -34,7 +34,7 @@
                             <button class="btn btn-theme btn-block pt-2 pb-2" type="submit">APPLY</button>
                         </div>
                     </form>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

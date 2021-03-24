@@ -23,11 +23,30 @@ Links Detail
                         <h4>Latest Hit Section</h4>
                      </div>
                      <div class="list">
+                     <table class="table table-responsive">
+   <thead>
+      <tr>
+         <th scope="col">Count</th>
+         <th scope="col">Link</th>
+      </tr>
+   </thead>
+   <tbody>
+      {{-- {{pr($LatestHitLinks)}} --}}
+      @foreach ($LatestHitLinks as $hits)
+      <tr>
+         <td><span>{{$hits->click_count}}</span> </td>
+         <td><a>{{$hits->generated_link}}</a></td>
+      </tr>
+      @endforeach
+   </tbody>
+</table>
+
+                        <!-- 
                         {{-- {{pr($LatestHitLinks)}} --}}
                         @foreach ($LatestHitLinks as $hits)
                         <span>{{$hits->click_count}}</span> 
                         <a>{{$hits->generated_link}}</a> <br>
-                        @endforeach
+                        @endforeach -->
                      </div>
                   </div>
                </div>
@@ -37,11 +56,30 @@ Links Detail
                         <h4>Trading Links</h4>
                      </div>
                      <div class="list">
-                        {{-- {{pr($trendingLinks)}} --}}
+
+                     <table class="table table-responsive">
+   <thead>
+      <tr>
+         <th scope="col">Count</th>
+         <th scope="col">Link</th>
+      </tr>
+   </thead>
+   <tbody>
+   {{-- {{pr($trendingLinks)}} --}}
+    @foreach ($trendingLinks as $trend)
+      <tr>
+         <td><span>{{$trend->click_count}}</span> </td>
+         <td><a>{{$trend->generated_link}}</a></td>
+      </tr>
+      @endforeach
+   </tbody>
+</table>
+
+                        <!-- {{-- {{pr($trendingLinks)}} --}}
                         @foreach ($trendingLinks as $trend)
                         <span>{{$trend->click_count}}</span> 
                         <a>{{$trend->generated_link}}</a><br>
-                        @endforeach
+                        @endforeach -->
                      </div>
                   </div>
                </div>

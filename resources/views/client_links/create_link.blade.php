@@ -39,7 +39,9 @@
                             </div> --}}
                             <div class="col-lg-12 form-group">
                                 <label class="col-form-label">Slash tag</label>
-                                <input class="form-control" readonly type="text" id="slash_tag" name="slash_tag" placeholder="Slash tag (eg. card)" />
+                                {{-- <input class="form-control" readonly type="text" id="slash_tag" name="slash_tag" placeholder="Slash tag (eg. card)" /> --}}
+                                (After "{{URL::to('/')}}/")
+                                <input class="form-control" type="text" id="slash_tag" name="slash_tag" placeholder="Slash tag (eg. card)" />
                             </div>
                         </div>
                         <div class="row small-gutter">
@@ -125,6 +127,13 @@
     $(document).ajaxSend(function() {
         $("#overlay").fadeIn(300);　
     });
+    $('#slash_tag').keyup(function(){
+        var string = $(this).val();
+        console.log('before---------->',string);
+        string = string.replace(/[&\/\\#^![,+(\])$~%.@'":*?<>{}]/g, '');
+        console.log('after---------->',string);
+        $(this).val(string);
+    });
     $(document).ready(function() {
         var link_type = $('input:radio[name=link_type]:checked').val();
         $('#website_url').typeWatch({
@@ -171,6 +180,13 @@
                         success:function(data) {
                             var res = JSON.parse(data);
                             if(res.status == "link-exist") {
+                                Swal.fire({ 
+                                    type: "error", 
+                                    title: "Oops!", 
+                                    text: res.msg, 
+                                    showCancelButton: 1,
+                                })
+                            } else if(res.status == "bake-half-exist") {
                                 Swal.fire({ 
                                     type: "error", 
                                     title: "Oops!", 
@@ -232,9 +248,11 @@
                         } else {
                             $('.website-favicon').attr('src', res.favicon);
                         }
+                        var chunks = res.meta_title.link.split('/');
+                        console.log('bake-half--------------->',chunks[3]);
                         $('.website-title').html(res.meta_title.title);
                         $('#link_title').val(res.meta_title.title);
-                        $('#slash_tag').val(res.meta_title.link);
+                        $('#slash_tag').val(chunks[3]);
                         $('.website-short-url').html(res.meta_title.link);
                         $('#link_code').val(res.meta_title.code);
                     } else if(res.status == 404) {
