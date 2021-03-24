@@ -92,8 +92,7 @@ class LoginController extends Controller
             // pr($trendingLinks);
 
             $maxClickLocation = DB::table('links_reports')->leftJoin('user_links as ul','ul.id','=','links_reports.link_id')->where('links_reports.countryCode','<>',"")->where('ul.userid',$userid)->select(DB::raw('count(links_reports.id) as click_count'), 'countryName', 'countryCode')->groupBy('countryCode')->orderBy('click_count', 'DESC')->first();
-            // pr($maxClickLocation); die;
-
+           
             return view('client_home',compact('LatestHitLinks','TotalLinks','trendingLinks','maxClickLocation'));
         }
         return redirect()->route('user.signin');

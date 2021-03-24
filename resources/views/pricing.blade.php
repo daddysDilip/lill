@@ -22,7 +22,7 @@
                     <tr>
                         <th class="first" scope="col"></th>
                         @foreach ($Plans as $key => $val)
-                            <th scope="col" class="text-center p-4 align-middle">{{$val['name']}} {{$val['isFree'] == 1 ? '(Free)':''}} <span class="d-block pt-3">{{$val['isFree'] == 1 ? '$0':$val['monthly_price']}} Monthly | {{$val['isFree'] == 1 ? '$0':$val['annual_price']}} Anualy</span> 
+                            <th scope="col" class="text-center p-4 align-middle">{{$val['name']}} {{$val['isFree'] == 1 ? '(Free)':''}} <span class="d-block pt-3">${{$val['isFree'] == 1 ? '0':$val['monthly_price']}} Monthly | ${{$val['isFree'] == 1 ? '0':$val['annual_price']}} Anualy</span> 
                                 @if($val['isFree'] == 1)
                                     <a href="{{url('signup','standard')}}" class="btn p-1 btn-block btn-theme mt-4">Sign Up</a>
                                 @elseif ($val['status'] == 0)

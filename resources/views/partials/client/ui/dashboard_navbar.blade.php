@@ -115,7 +115,7 @@
                <li class="d-none d-md-block d-lg-block">
                   <a href="{{ route('pricing') }}"><button class="btn btn-theme">Upgrade Plan</button></a>
                </li>
-   
+               
                <li>
                   <div class="dropdown">
                       <button class="btn btn-link dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -126,7 +126,7 @@
                           <a class="dropdown-item" href="{{ route('user.logout') }}">Logout</a>
                       </div>
                   </div>
-                  </li>
+               </li>
             </ul>
          </div>
       </div>

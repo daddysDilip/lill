@@ -6,7 +6,11 @@
                 <div role="button" class="mobile-menu-trigger js-menu-trigger hidden-lg visible-sm visible-xs">
                     <span></span>
                 </div>
-                <a href="{{url('/')}}" class="brand-logo">
+                @if(Auth::guard('user')->user() != null)
+                    <a href="{{url('/user-dashboard')}}" class="brand-logo">
+                @else     
+                    <a href="{{url('/')}}" class="brand-logo">
+                @endif
                     <img src="{{!empty(get_setting_option('site_logo')->value) ? asset('client/images/'.get_setting_option('site_logo')->value) : ''}}" />
                 </a>
             </div>
@@ -58,14 +62,30 @@
             <div class="col-lg-3 col-7 text-right">
                 <ul class="header-right-block d-flex align-items-center justify-content-between">
                     <li>
-                        <a href="{{url('signin')}}">Login</a>
-                    </li>
-                    <li>
-                        <a href="{{url('signup')}}">Sign up</a>
-                    </li>
-                    <li>
                         <button class="btn btn-theme" data-toggle="modal" data-target="#GetCallModal">Get a Quote</button>
                     </li>
+                    @if(Auth::guard('user')->user() != null)
+                        <li>
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <img src="{{asset('client/images/user-avatar.png')}}" width="25px" />
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" href="{{ route('user.account.settings','account-details') }}">Account Settings</a>
+                              <a class="dropdown-item" href="{{ route('user.logout') }}">Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                    @else
+                        <li>
+                            <a href="{{url('signin')}}">Login</a>
+                        </li>
+                        <li>
+                            <a href="{{url('signup')}}">Sign up</a>
+                        </li>
+
+                    
+                    @endif
                 </ul>
             </div>
         </div>

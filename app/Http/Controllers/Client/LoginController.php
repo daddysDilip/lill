@@ -17,9 +17,9 @@ use Socialite;
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
-
     public function __construct()
     {
+        
         //$this->middleware('guest:client')->except('logout');
     }
 

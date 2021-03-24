@@ -16,6 +16,11 @@
 
     <!-- Including header scripts & css -->
     @include('partials.client.ui.head_scripts')
+    @if(Auth::guard('user')->user() != null)
+        {{-- DilipKalsariyaaaa --}}
+        <link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700" rel="stylesheet">
+        @include('partials.client.ui.dashboard_header_scripts')
+    @endif
     
     <!-- Yield CSS -->
     @yield('css')
@@ -37,7 +42,9 @@
 
         <!-- Including footer scripts -->
         @include('partials.client.ui.footer_scripts')
-
+        @if(Auth::guard('user')->user() != null)
+            @include('partials.client.ui.dashboard_footer_scripts')
+        @endif
         @include('tools.get_call_modal')
 
         <!--- Yield JS -->

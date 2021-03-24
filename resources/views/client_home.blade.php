@@ -90,7 +90,7 @@ Links Detail
                         <h4> Max Click From Location</h4>
                      </div>
                      <div class="list-2">
-                     <span>{{$maxClickLocation->countryName}}</span>
+                     <span>{{$maxClickLocation == null ? "" : $maxClickLocation->countryName}}</span>
             {{-- <span>{{$maxClickLocation->countryCode}}</span>
             <span>{{$maxClickLocation->click_count}}</span> --}}
                      </div>

@@ -53,10 +53,17 @@ class HomeController extends Controller
     }
 
     public function showUserLogin() {
+        if(Auth::guard('user')->user() != null)
+        {
+            return redirect('/user-dashboard');
+        }
         return view('auth.client_login');
     }
 
     public function showAdminLoginForm() {
+        if(Auth::guard('admin')->user() != null){
+            return redirect('/admin-dashboard');
+        }
         return view('auth.login');
     }
 

@@ -347,7 +347,7 @@ class URLGenerateController extends Controller
                 $user_link->ip_address = get_ip();
                 $user_link->domain = $request->domain ?? "";
                 $user_link->tags = $request->tags ?? "";
-                $user_link->qr_code = generate_qr($request->slash_tag);
+                $user_link->qr_code = generate_qr($sortLink);
                 $user_link->isGuestLink = 0;
                 $user_link->status = 1;
                 $user_link->created_at = getDateTime();
@@ -457,7 +457,7 @@ class URLGenerateController extends Controller
             $user_link->link_tags = $request->link_tags ?? "";
             $user_link->link_code = $slash_tag;
             $user_link->ip_address = get_ip();
-            $user_link->qr_code = generate_qr($request->slash_tag);
+            $user_link->qr_code = generate_qr($sortLink);
             $user_link->updated_at = getDateTime();
 
             if($user_link->save()) {
