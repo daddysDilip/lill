@@ -74,6 +74,7 @@ class URLGenerateController extends Controller
             $meta_title = get_url_data($url,$link_type);
             $favicon = get_favicon($url);    
             if(!empty($meta_title)) {
+                $meta_title['link'] = remove_http($meta_title['link']);
                 echo json_encode(['status' => '200','meta_title' => $meta_title,'favicon' => $favicon]);
             } else {
                 echo json_encode(['status' => '404','msg' => 'Unable to generate link. Please check if URL is valid or try again later.']);

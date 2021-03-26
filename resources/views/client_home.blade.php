@@ -35,7 +35,7 @@ Links Detail
       @foreach ($LatestHitLinks as $hits)
       <tr>
          <td><span>{{$hits->click_count}}</span> </td>
-         <td><a>{{$hits->generated_link}}</a></td>
+         <td><a>{{remove_http($hits->generated_link)}}</a></td>
       </tr>
       @endforeach
    </tbody>
@@ -45,7 +45,7 @@ Links Detail
                         {{-- {{pr($LatestHitLinks)}} --}}
                         @foreach ($LatestHitLinks as $hits)
                         <span>{{$hits->click_count}}</span> 
-                        <a>{{$hits->generated_link}}</a> <br>
+                        <a>{{remove_http($hits->generated_link)}}</a> <br>
                         @endforeach -->
                      </div>
                   </div>
@@ -69,7 +69,7 @@ Links Detail
     @foreach ($trendingLinks as $trend)
       <tr>
          <td><span>{{$trend->click_count}}</span> </td>
-         <td><a>{{$trend->generated_link}}</a></td>
+         <td><a>{{remove_http($trend->generated_link)}}</a></td>
       </tr>
       @endforeach
    </tbody>

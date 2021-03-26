@@ -1,4 +1,11 @@
 <?php
+function remove_http($str)
+{
+    $removeChar = ["https://", "http://"];
+    $http_referer = str_replace($removeChar, "", $str);
+    return $http_referer;
+}
+
 
 function random_link($limit) {
     // $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';         

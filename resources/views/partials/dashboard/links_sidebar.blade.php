@@ -44,9 +44,9 @@
                 <div class="row small-gutter m-auto justify-content-center">
                     <div class="col-10">
                         <input type="checkbox" name="short_urls[]" value="{{$links->id}}" />
-                        <label for="link1">
+                        <label for="link1" class="w-100">
                             <span class="media-body">
-                                <strong class="d-block">{{$links->generated_link}}</strong>
+                                <strong class="d-block">{{remove_http($links->generated_link)}}</strong>
                                 {{$links->link_title}}
                             </span>
                             <span class="d-flex justify-content-between mt-3">

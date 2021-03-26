@@ -14,7 +14,7 @@
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-8">
-                                        <a href="{{$links->generated_link}}" target="_blank" id="copy-link-{{$links->link_id}}">{{$links->generated_link}}</a>
+                                        <a href="{{$links->generated_link}}" target="_blank" id="copy-link-{{$links->link_id}}">{{remove_http($links->generated_link)}}</a>
                                         <p class="mt-2">{{$links->link_title}}</p>
                                     </div>
                                     <div class="col-lg-4">

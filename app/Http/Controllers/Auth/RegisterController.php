@@ -81,6 +81,10 @@ class RegisterController extends Controller
     }
 
     public function showRegisterForm($plan = 'standard') {
+        if(Auth::guard('user')->user() != null)
+        {
+            return redirect('/user-dashboard');
+        }
         $plan_type = 0;
         if($plan == 'standard')
         {

@@ -9,7 +9,7 @@
             <div class="link-details p-2 p-lg-3">
                 CREATED {{get_link_full_date($Link->created_at)}}
                 <br/><br/>
-                <h2 class="heading-s2">{{$Link->generated_link}}</h2>
+                <h2 class="heading-s2">{{remove_http($Link->generated_link)}}</h2>
                 <p class="mb-2">{{$Link->link_title}}</p>
                 <a href="{{url('/'.$Link->link_code)}}" target="_blank">{{$Link->website_url ?? ''}}</a>
                 <div class="row extra-small-gutter mt-4">

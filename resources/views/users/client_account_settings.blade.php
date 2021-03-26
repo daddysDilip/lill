@@ -130,7 +130,7 @@
                                                 @foreach ($HiddenLinks as $link)
                                                     <tr>
                                                         <td>{{$link->website_url}}</td>
-                                                        <td>{{$link->generated_link}}</td>
+                                                        <td>{{remove_http($link->generated_link)}}</td>
                                                         <td>
                                                             <button type="button" data-link_id="{{$link->id}}" class="btn btn-sm btn-info btn-unhide-link" data-toggle="tooltip" title="Unhide Link to show on dashboard"><i class="fa fa-eye-slash"></i></button>
                                                         </td>
@@ -163,7 +163,7 @@
                                                 @foreach ($FavoriteLinks as $link)
                                                     <tr>
                                                         <td>{{$link->website_url}}</td>
-                                                        <td>{{$link->generated_link}}</td>
+                                                        <td>{{remove_http($link->generated_link)}}</td>
                                                         <td>
                                                             <button type="button" data-favorite_id="{{$link->favorite_id}}" data-link_id="{{$link->link_id}}" class="btn btn-sm btn-danger btn-remove-favorite" data-toggle="tooltip" title="Remove Link from Favorites"><i class="fa fa-trash"></i></button>
                                                         </td>

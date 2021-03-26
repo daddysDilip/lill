@@ -36,7 +36,7 @@
                                                     <div class="col-12">
                                                         <input id="{{$link->id}}" type="checkbox" name="user_links[]" value="{{$link->id}}" />
                                                         <label for="{{$link->id}}">
-                                                            <a href="#">{{$link->generated_link}}</a>
+                                                            <a href="#">{{remove_http($link->generated_link)}}</a>
                                                         <p class="mt-2">{{$link->link_title}}</p>
                                                         </label>
                                                     </div>

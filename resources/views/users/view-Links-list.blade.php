@@ -60,7 +60,7 @@
                           @if (!empty($LinksData))
                             @foreach ($LinksData as $data)
                               <tr>
-                                <td>{{$data->generated_link}}</td>
+                                <td>{{remove_http($data->generated_link)}}</td>
                                 <td>{{date('d M Y',strtotime($data->created_at))}}</td>
                                 <td>{{get_link_count($data->id)}}</td>
                                 <td>{{$data->favorite_id ? "yes" : "no"}}</td>
@@ -108,7 +108,10 @@
   } );
   $(function() {
     $('input[name="daterange"]').daterangepicker({
-      opens: 'left'
+      opens: 'left',
+         locale: {
+            format: 'DD-MM-YYYY'
+        }
     }, function(start, end, label) {
       console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });

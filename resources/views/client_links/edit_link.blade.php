@@ -40,7 +40,7 @@
                                 <div class="col-lg-12 form-group">
                                     <label class="col-form-label">Slash tag</label>
                                     (After "{{URL::to('/')}}/")
-                                    <input class="form-control" type="text" id="slash_tag" name="slash_tag" value="{{$Link->link_code}}" placeholder="Slash tag (eg. card)" />
+                                    <input class="form-control" type="text" {{(!empty($Link) && ($Link->link_type != 6)) ? "readonly" : ""}} id="slash_tag" name="slash_tag" value="{{$Link->link_code}}" placeholder="Slash tag (eg. card)" />
                                 </div>
                             </div>
                             <div class="row small-gutter">
@@ -85,7 +85,7 @@
                                     <div class="form-check">
                                         <input class="form-check-input mt-0" type="radio" value="4" {{(!empty($Link) && ($Link->link_type == 4)) ? "checked" : ""}} name="link_type" id="r4" />
                                         <label class="form-check-label" for="r4">
-                                            Suggested with dash (SEO friendly)
+                                            SEO friendly
                                         </label>
                                         <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
                                             data-placement="right" title="Tooltip on right"></i>
@@ -99,6 +99,16 @@
                                         </label>
                                         <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
                                             data-placement="right" title="Tooltip on right"></i>
+                                    </div>
+                                </li>
+                                <li class="mr-4 mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input mt-0" type="radio" id="r6" name="link_type" value="6" {{(!empty($Link) && ($Link->link_type == 6)) ? "checked" : ""}} />
+                                        <label class="form-check-label" for="r6">
+                                            Custom back-half
+                                        </label>
+                                        <i type="button" class="sprite tooltips tooltip-icon ml-1" data-toggle="tooltip"
+                                            data-placement="right" title="For enable edit custom half"></i>
                                     </div>
                                 </li>
                             </ul>
@@ -134,7 +144,16 @@
         $("#overlay").fadeIn(300);　
     });
     $(document).ready(function() {
-
+        $('.form-check-input').click(function() { 
+            var check_aval = $('#slash_tag').attr('readonly');
+            var rBtnVal = $(this).val();
+            if(rBtnVal == "6"){
+                $("#slash_tag").attr("readonly", false); 
+            }
+            else{ 
+                $("#slash_tag").attr("readonly", true); 
+            }
+        });
         $.validator.addMethod('validUrl', function (value) { 
             if(/^(?:(ftp|http|https)?:\/\/)?(?:[\w-]+\.)+([a-z]|[A-Z]|[0-9]){2,6}$/gi.test(value)) {
                 return true;
@@ -222,7 +241,8 @@
                 $('.url-msg').html('Please enter valid URL which you want to shorten.');
             } else {
                 link_type = e.target.value;
-                fetchMetaData($.trim(link_type));
+                if(link_type != "6")
+                    fetchMetaData($.trim(link_type));
             }   
         });
 
