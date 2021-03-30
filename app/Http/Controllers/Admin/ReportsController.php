@@ -11,6 +11,12 @@ use Mail;
 
 class ReportsController extends Controller
 {
+    public function __construct()
+    {
+        if(Auth::guard('admin')->user() == null) {
+            return Redirect::to('shortly-admin')->send();
+        }
+    }
     public function showCustomerEnquiry() {
         $activeMenu = "reports";
         $subMenu = "manage_customer_enquiry";

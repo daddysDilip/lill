@@ -10,6 +10,12 @@ use DB;
 
 class PlanFeatureController extends Controller
 {
+    public function __construct()
+    {
+        if(Auth::guard('admin')->user() == null) {
+            return Redirect::to('shortly-admin')->send();
+        }
+    }
     /**
      * Display a listing of the resource.
      *

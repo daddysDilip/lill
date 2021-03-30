@@ -92,14 +92,14 @@ class RegisterController extends Controller
             if (Mail::failures()) 
             {
                 Log::info('Failed to send email -> '.$failures[] = Mail::failures()[0]);
-                return redirect('signup')->with('success',"You've registered successfully. Please check your email to verify your account.");
+                return redirect('signin')->with('success',"You've registered successfully. Please check your email to verify your account.");
             }
 
-            return redirect('signup')->with('success',"You've registered successfully. Please check your email to verify your account.");
+            return redirect('signin')->with('success',"You've registered successfully. Please check your email to verify your account.");
 
         } catch (Exception $e) {
             Log:info("Error during user registration : ".$e);
-            return redirect('signup')->with('success',"You've registered successfully. Please check your email to verify your account.");
+            return redirect('signin')->with('success',"You've registered successfully. Please check your email to verify your account.");
         }
     }    
 

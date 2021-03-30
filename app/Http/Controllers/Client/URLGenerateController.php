@@ -15,6 +15,7 @@ use Jenssegers\Agent\Agent;
 use Location;
 use Share;
 use App\Notifications\NewLinkNotification as LinkNotification;
+use App\GroupLinksMapping as LinkMapping;
 
 class URLGenerateController extends Controller
 {
@@ -358,6 +359,15 @@ class URLGenerateController extends Controller
                 
                 if($user_link_limit == 0 || $count_user_links < $user_link_limit) {
                     if($user_link->save()) {
+                        if($request->group_id)
+                        {
+                            $link_maping = new LinkMapping();
+                            $link_maping->link_id = $user_link->id;
+                            $link_maping->group_id = $request->group_id;
+                            $link_maping->created_at = getDateTime();
+                            $link_maping->save();
+                        }
+                        
                         \Notification::send($user, new LinkNotification(UserLinks::findOrFail($user_link->id)));
                         return json_encode(['status' => 'success','msg' =>'URL generated successfully.','link' => $slash_tag]);
                     } else {

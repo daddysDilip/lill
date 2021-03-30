@@ -6,6 +6,16 @@ function remove_http($str)
     return $http_referer;
 }
 
+function get_groups($id)
+{
+    $res = DB::table('link_groups')->where('user_id',$id)->get();
+    if($res != null)
+    {
+        return json_decode(json_encode($res),1);   
+    } else {
+        return array();
+    }
+}
 
 function random_link($limit) {
     // $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';         
@@ -51,6 +61,23 @@ function get_link_by_url($url) {
         return $result;
     }
     return false;
+}
+function total_rows($table, $where = array())
+{
+    if (is_array($where)) {
+       if (sizeof($where) > 0) {
+            //$CI->db->where($where);
+            return DB::table($table)->where($where)->count();
+        }
+    } else if (strlen($where) > 0) {
+
+
+        return DB::table($table)->where($where)->count();
+
+    }
+
+    return DB::table($table)->count();
+    //return $CI->db->count_all_results($table);
 }
 
 function get_ip() {

@@ -9,9 +9,16 @@ use App\SitePermissions as Permission;
 use App\SiteLogs as Log;
 use App\SiteRoles as Roles;
 use DB;
+use Redirect;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        if(Auth::guard('admin')->user() == null) {
+            return Redirect::to('shortly-admin')->send();
+        }
+    }
     public function index() {
         $activeMenu = "users";
         $subMenu = "manage_permissions";
@@ -296,6 +303,51 @@ class PermissionController extends Controller
                     }
                 }
             }
+        }
+    }
+
+    public function savePermission(Request $request) {
+
+        try{
+
+        if($request->all() != null && $request->has('permission')){
+            if(count($request->get('permission')) > 0){
+                $permissions =$request->get('permission');
+                foreach($permissions as $permission){
+                    $per_count = total_rows('site_permissions', array('moduleid'=>$permission['moduleId'], 'roleid'=>$permission['roleId']));
+
+                    if(isset($permission['add']) || isset($permission['edit'])  || isset($permission['view'])  || isset($permission['delete']) ||  $per_count > 0 ){
+                    
+
+                        if($per_count == 0){
+                            $perm = new Permission;
+                            $perm->roleid = $permission['roleId'];
+                            $perm->moduleid = $permission['moduleId'];
+                            $perm->add = (isset($permission['add']) ? $permission['add']: null);
+                            $perm->edit = (isset($permission['edit']) ? $permission['edit']: null);
+                            $perm->delete = (isset($permission['delete']) ? $permission['delete']: null);
+                            $perm->view = (isset($permission['view']) ? $permission['view']: null);
+                            $perm->save();
+                        }else{
+                            $data =array(
+                             'add'=>(isset($permission['add']) ? $permission['add']: null),
+                             'edit'=>(isset($permission['edit']) ? $permission['edit']: null),
+                             'delete'=>(isset($permission['delete']) ? $permission['delete']: null),
+                             'view'=>(isset($permission['view'])  ? $permission['view']: null),
+                            );
+                             $perm = Permission::where([
+                                'roleid' => $permission['roleId'],
+                                'moduleid' => $permission['moduleId']
+                            ])->update($data);
+                        }
+
+                    }
+                }
+            }
+        }
+        return redirect()->back()->with('success', 'Permission Saved Successfully');
+        }catch (Exception $e) {
+            Log::error("Failed to save permission -> ".$e);
         }
     }
 }

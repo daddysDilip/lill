@@ -9,6 +9,12 @@ use App\SiteLogs as Log;
 
 class LogController extends Controller
 {
+    public function __construct()
+    {
+        if(Auth::guard('admin')->user() == null) {
+            return Redirect::to('shortly-admin')->send();
+        }
+    }
     public function index() {
         $activeMenu = "settings";
         $subMenu = "site_logs";

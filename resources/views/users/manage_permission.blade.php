@@ -54,6 +54,12 @@
                                             </div>
                                         </div>
                                     </div>
+                            @if (!empty($PermissionData))
+                            <form id="permissionForm" method="post" action="{{route('save.all.permission')}}">
+                            @csrf
+                            <div class="text-right">
+                                    <button type="submit" class="btn btn-danger">Save</button>
+                                </div>
                                     <div class="table-responsive">
                                         <table class="table permission-details">
                                             <thead>
@@ -68,28 +74,39 @@
                                             </thead>
                                             <tbody>
                                                 @if (!empty($PermissionData))
+                                                <?php $i=0; ?>
                                                     @foreach ($PermissionData as $perm)
+
                                                     <tr>
+                                                        <input type="hidden" name="permission[{{$i}}][moduleId]" value="{{$perm->moduleId}}">
+                                                        <input type="hidden" name="permission[{{$i}}][roleId]" value="{{$perm->roleId}}">
                                                         <td>{{$perm->roleName}}</td>
                                                         <td>{{$perm->moduleName}}</td>
                                                         <td>
-                                                            <input type="checkbox" name="AddPermission[]" onchange="changePermission('{{$perm->roleId}}','{{$perm->moduleId}}','{{$perm->add == 1 ? 0 : 1}}','add');" {{$perm->moduleName}} {{$perm->add == 1 ? "checked" : ""}} value="{{$perm->add}}" />
+                                                            <input type="checkbox" name="permission[{{$i}}][add]" {{$perm->moduleName}} {{$perm->add == 1 ? "checked" : ""}}  value="1"  />
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" name="UpdatePermission[]" onchange="changePermission('{{$perm->roleId}}','{{$perm->moduleId}}','{{$perm->edit == 1 ? 0 : 1}}','edit');" {{$perm->edit == 1 ? "checked" : ""}} value="{{$perm->edit}}" />
+                                                            <input type="checkbox" name="permission[{{$i}}][edit]" {{$perm->edit == 1 ? "checked" : ""}}  value="1"  />
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" name="DeletePermission[]" onchange="changePermission('{{$perm->roleId}}','{{$perm->moduleId}}','{{$perm->delete == 1 ? 0 : 1}}','delete');" {{$perm->delete == 1 ? "checked" : ""}} value="{{$perm->delete}}" />
+                                                            <input type="checkbox" name="permission[{{$i}}][delete]" {{$perm->delete == 1 ? "checked" : ""}}  value="1"  />
                                                         </td>
                                                         <td>
-                                                            <input type="checkbox" name="ViewPermission[]" onchange="changePermission('{{$perm->roleId}}','{{$perm->moduleId}}','{{$perm->view == 1 ? 0 : 1}}','view');" {{$perm->view == 1 ? "checked" : ""}} value="{{$perm->view}}" />
+                                                            <input type="checkbox" name="permission[{{$i}}][view]" {{$perm->view == 1 ? "checked" : ""}}  value="1"  />
                                                         </td>
                                                     </tr>
+                                                    <?php $i++; ?>
                                                     @endforeach
                                                 @endif
                                             </tbody>
                                         </table>
+                                        <div class="card-footer"><div class="text-right">
+                                            <button type="submit" class="btn btn-danger">Save</button>
+                                        </div></div>
                                     </div>
+                            </form>
+
+                                @endif
                                 </div>
                             </div>
                         </div>
@@ -109,7 +126,7 @@
     <script>
         $(document).ready(function() {
             $('.permission-details').DataTable({
-                "ordering": false
+                "ordering": false,"responsive": true, "lengthChange": false, "autoWidth": false,
             });
 
             $('#role').change(function() {

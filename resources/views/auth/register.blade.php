@@ -52,7 +52,7 @@
                         </div>
                     @enderror
                 </div>
-                {{-- <div class="form-group position-relative mb-4">
+                <div class="form-group position-relative mb-4">
                     <input class="form-control" type="password" placeholder="Repeat password" name="password_confirm" id="password_confirm" />
                     <small class="position-absolute forgot-link text-muted" href="#"></small>
                     @error('password_confirm')
@@ -60,7 +60,7 @@
                             {{$message}}
                         </div>
                     @enderror
-                </div> --}}
+                </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-theme btn-block">Create Account</button>
                 </div>
@@ -110,10 +110,10 @@ $(document).ready(function() {
                 minlength:8,
                 maxlength:20
             },
-            /*password_confirm : {
+            password_confirm : {
                 minlength : 5,
                 equalTo : "#password"
-            }*/
+            }
         },
         messages:{
             email:{

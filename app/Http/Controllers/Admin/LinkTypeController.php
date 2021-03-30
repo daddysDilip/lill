@@ -9,6 +9,12 @@ use Auth;
 
 class LinkTypeController extends Controller
 {
+    public function __construct()
+    {
+        if(Auth::guard('admin')->user() == null) {
+            return Redirect::to('shortly-admin')->send();
+        }
+    }
     public function index() {
         $activeMenu = "settings";
         $subMenu = "manage_link_types";

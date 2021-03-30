@@ -50,6 +50,20 @@
                                 <input type="text" id="link_tags" name="link_tags" class="form-control" data-role="tagsinput" />
                             </div>
                         </div>
+                        {{-- {{pr(get_groups(Auth::guard('user')->user()->id))}} --}}
+                        @if(!empty(get_groups(Auth::guard('user')->user()->id)))
+                        <div class="row small-gutter">
+                            <div class="col-lg-12 form-group">
+                                <label class="col-form-label">Select group</label>
+                                <select id="group_id" name="group_id" class="form-control">
+                                    <option value="">select group</option>
+                                @foreach(get_groups(Auth::guard('user')->user()->id) as $group)
+                                  <option value="{{$group['id']}}">{{$group['group_name']}}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                        </div>  
+                        @endif
                         <label class="col-form-label">Choose a slash tag style</label>
                         <ul class="d-lg-flex mt-3">
                             <li class="mr-4 mb-3">
@@ -271,10 +285,10 @@
                             $('.website-favicon').attr('src', res.favicon);
                         }
                         var chunks = res.meta_title.link.split('/');
-                        console.log('bake-half--------------->',chunks[3]);
+                        console.log('bake-half--------------->',chunks[1]);
                         $('.website-title').html(res.meta_title.title);
                         $('#link_title').val(res.meta_title.title);
-                        $('#slash_tag').val(chunks[3]);
+                        $('#slash_tag').val(chunks[1]);
                         $('.website-short-url').html(res.meta_title.link);
                         $('#link_code').val(res.meta_title.code);
                     } else if(res.status == 404) {

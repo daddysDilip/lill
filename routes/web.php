@@ -250,6 +250,7 @@ Route::post('check-user-password', 'Admin\UserController@checkUserPassword');
 Route::post('fetch-plans-feature','Admin\PlansController@fetchPlansFeature');
 Route::get('flush-log-data','Admin\LogController@flushLogs');
 Route::get('add-permission','Admin\PermissionController@addPermission');
+Route::post('save-permission','Admin\PermissionController@savePermission')->name('save.all.permission');
 Route::get('delete-map-feature','Admin\PlansController@destroyPlanFeature');
 Route::get('change-plan-status','Admin\PlansController@changePlanStatus');
 Route::post('get-state-list','LocationController@getStateList')->name('get.state.list');
